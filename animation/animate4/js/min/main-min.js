@@ -1,0 +1,1 @@
+var s=Snap(1440,720);Snap.load("img/cloud1.svg",function(a){var n=a.select("#cloud1Main");s.append(n)});var cloudImg2=s.select("#cloud1Main");window.addEventListener("load",function(){cloudImg2.animate({transform:"translate(30) rotate(45 50 50)"},5e3)});

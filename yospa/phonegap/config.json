@@ -1,0 +1,10 @@
+{
+  "lib": {
+    "www": {
+      "id": "yospa"
+      ,"version": "0.0.0"
+    }
+  }
+  ,"id": "com.phonegap.yospa"
+  ,"name": "yospa"
+}

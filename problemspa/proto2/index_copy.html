@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en" data-framework="javascript">
+	<head>
+		<meta charset="utf-8">
+		<title>VanillaJS • TodoMVC</title>
+		<link rel="stylesheet" href="base.css">
+	</head>
+	<body>
+		<!-- <section id="todoapp">
+      <header id="header">
+        <h1>todos</h1>
+        <input id="new-todo" placeholder="What needs to be done?" autofocus>
+      </header>
+      <section id="main">
+        <input id="toggle-all" type="checkbox">
+        <label for="toggle-all">Mark all as complete</label>
+        <ul id="todo-list"></ul>
+      </section>
+      <footer id="footer">
+        <span id="todo-count"></span>
+        <ul id="filters">
+          <li>
+            <a href="#/" class="selected">All</a>
+          </li>
+          <li>
+            <a href="#/active">Active</a>
+          </li>
+          <li>
+            <a href="#/completed">Completed</a>
+          </li>
+        </ul>
+        <button id="clear-completed">Clear completed</button>
+      </footer>
+    </section> -->
+    <script type="text/x-handlebars" data-template-name="todo-list">
+    			{{#if length}}
+    				<section id="main">
+    					{{#if canToggle}}
+    						{{input type="checkbox" id="toggle-all" checked=allTodos.allAreDone}}
+    					{{/if}}
+    					<ul id="todo-list">
+    						{{#each}}
+    							<li {{bind-attr class="isCompleted:completed isEditing:editing"}}>
+    								{{#if isEditing}}
+    									{{todo-input type="text" class="edit" value=bufferedTitle focus-out="doneEditing" insert-newline="doneEditing" escape-press="cancelEditing"}}
+    								{{else}}
+    									{{input type="checkbox" class="toggle" checked=isCompleted}}
+    									<label {{action "editTodo" on="doubleClick"}}>{{title}}</label>
+    									<button {{action "removeTodo"}} class="destroy"></button>
+    								{{/if}}
+    								</li>
+    						{{/each}}
+    					</ul>
+    				</section>
+    			{{/if}}
+    		</script>
+    		<script type="text/x-handlebars" data-template-name="todos">
+    			<section id="todoapp">
+    				<header id="header">
+    					<h1>todos</h1>
+    					{{todo-input id="new-todo" type="text" value=newTitle action="createTodo" placeholder="What needs to be done?"}}
+    				</header>
+    					{{outlet}}
+    					{{#if length}}
+    						<footer id="footer">
+    							<span id="todo-count"><strong>{{remaining.length}}</strong> {{pluralize 'item' remaining.length}} left</span>
+    							<ul id="filters">
+    								<li>
+    									{{#link-to "todos.index" activeClass="selected"}}All{{/link-to}}
+    								</li>
+    								<li>
+    									{{#link-to "todos.active" activeClass="selected"}}Active{{/link-to}}
+    								</li>
+    								<li>
+    									{{#link-to "todos.completed" activeClass="selected"}}Completed{{/link-to}}
+    								</li>
+    							</ul>
+    							{{#if completed.length}}
+    								<button id="clear-completed" {{action "clearCompleted"}}>
+    									Clear completed ({{completed.length}})
+    								</button>
+    							{{/if}}
+    						</footer>
+    					{{/if}}
+    			</section>
+    			<footer id="info">
+    				<p>Double-click to edit a todo</p>
+    				<p>
+    					Created by
+    					<a href="http://github.com/tomdale">Tom Dale</a>,
+    					<a href="http://github.com/addyosmani">Addy Osmani</a>
+    				</p>
+    				<p>
+    					Updated by
+    					<a href="http://github.com/bantic">Cory Forsyth</a>
+    				</p>
+    				<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+    			</footer>
+    		</script>
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+		</footer>
+		<script src="js/base.js"></script>
+		<script src="js/helpers.js"></script>
+    <script src="js/handlebars.js"></script>
+		<script src="js/store.js"></script>
+		<script src="js/model.js"></script>
+		<script src="js/template.js"></script>
+		<script src="js/view.js"></script>
+		<script src="js/controller.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>

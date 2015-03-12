@@ -1,0 +1,35 @@
+extends layout
+
+block body
+
+  #welcome.jumbotron
+    h1 Welcome to Stormpath-Express
+    p.lead.
+      &lt;br/&gt;
+      &lt;br/&gt;
+      Welcome to this gloriously simple &lt;a href="https://github.com/stormpath/stormpath-express-sample"&gt;Stormpath&lt;/a&gt;
+      sample app!
+    ul
+      li First, take a look through this very basic site.
+      li.
+        Then, check out this project's source code
+        &lt;a href="https://github.com/stormpath/stormpath-express-sample"&gt;on GitHub&lt;/a&gt;.
+      li Lastly, integrate Stormpath into your own sites!
+    &lt;br/&gt;
+    &lt;br/&gt;
+    h2 What this Sample App Demonstrates
+    br
+    p.
+      This simple app demonstrates how easy it is to register, login, and
+      securely authenticate users on your website using Stormpath.
+    p.
+      Aren't a Stormpath user yet?
+      &lt;a href="https://stormpath.com"&gt;Go signup now!&lt;/a&gt;
+    p.
+      &lt;b&gt;NOTE&lt;/b&gt;:
+      This app will NOT work until you have gone through the bootstrapping
+      instructions found in this project's &lt;code&gt;README.md&lt;/code&gt; file. For more
+      information, please follow the guide on this project's
+      &lt;a href="https://github.com/stormpath/stormpath-express-sample"&gt;GitHub page&lt;/a&gt;.
+    p.bigbutton
+      a.bigbutton.btn.btn-lg.btn-danger(href='/register', role='button') Register

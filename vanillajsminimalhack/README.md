@@ -1,0 +1,1 @@
+This is a single-page vanilla JavaScript application using the MVC architectural pattern.  This basic code for this application was borrowed from the TodoMVC vanilla JS app. 

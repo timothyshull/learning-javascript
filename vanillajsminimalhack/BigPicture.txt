@@ -1,0 +1,95 @@
+Store - (module takes in window and exports window.app.Store, which carries all of the methods of Store with it)
+
+Store - sets up {todos: []} in local storage
+find
+findAll
+save
+remove
+drop
+
+Model - (module takes in window and exports window.app.Model, which carries all of the methods of Model with it)
+
+Model - maps model to storage
+create
+read
+update
+remove
+removeAll
+getCount
+
+Controller - (module takes in window and exports window.app.Controller, which carries all of the methods of Controller with it)
+
+Controller - connects model to view, defines the handler event strings and the handler functions that take arguments from view.bind depending on the handler and maps them to model actions 
+setView - loads and initializes the view, possibly sets filter state to active or completed
+showAll 
+showActive
+showCompleted
+addItem - adds to model, renders todo, filters
+editItem
+editItemSave
+editItemCancel
+removeItem
+removeCompletedItems
+toggleComplete
+toggleAll
+_updateCount
+_filter
+_updateFilterState
+
+Template - (module takes in window and exports window.app.Template, which carries all of the methods of Template with it)
+
+Template
+show
+itemCounter
+clearCompletedButton
+
+View- (module takes in window and exports window.app.View, which carries all of the methods of View with it)
+
+View - connects view to template, maps local variable names to various elements
+_removeItem - removes todo-list items based off of [data-id=] from html
+_clearCompletedButton
+_setFilter
+_elementComplete
+_editItem
+_editItemDone
+render
+showEntries
+removeItem
+updateElementCount
+clearCompletedButton
+contentBlockVisibility
+toggleAll
+setFilter
+clearNewTodo
+elementComplete
+editItem
+editItemDone
+_itemId
+_bindeItemEdit
+_bindItemCancel
+bind - maps event types specified as strings in the controller to objects and events with a generic handler function (defined in the Controller constructor function) curried to specific arguments
+
+Helper- (module takes in window and exports each of these functions to window, i.e. window.qs, etc)
+
+qs - shorthand for a single query selector, returns first element matching, depth first
+qsa - shorthand for query selector all, returns nodelist
+$on - addEventListener wrapper
+$live - register events for elements that may not exist yet
+$parent - find element parent
+
+App -
+
+Todo - constructor function for the Todo object, sets global instance variables for all of the related components, taking in the name to create localStorage object, passing that to the model, creating an instance of the template, passing that to the view and creating a controller with a link to the model and the view, thus linking to the storage and the template
+
+function Todo(name) {
+		this.storage = new app.Store(name);
+		this.model = new app.Model(this.storage);
+		this.template = new app.Template();
+		this.view = new app.View(this.template);
+		this.controller = new app.Controller(this.model, this.view);
+	}
+
+var todo = new Todo(‘todos-vanillas’); - creates and instantiates the app
+
+setView - from controller
+(add event listener for hash change and load to setView)

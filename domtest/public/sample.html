@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Title</title>
+</head>
+
+<body>
+
+	<p id="DOMText"></p>
+
+</body>
+	<script>
+	function getDOMText() {
+		var request = new XMLHttpRequest();
+		request.open("GET", "http://localhost:3000", true);
+		request.send();
+		request.onreadystatechange=function() {
+			if (this.readyState == this.HEADERS_RECEIVED) {
+				parser = new DOMParser();
+				doc = parser.parseFromString(request.responseText, "text/html");
+				var DOMElement = document.getElementById("DOMText");
+				DOMElement.innerHTML = request.responseText;
+			}
+		}	
+	}
+	
+	window.onload = getDOMText;
+	</script>
+</html>

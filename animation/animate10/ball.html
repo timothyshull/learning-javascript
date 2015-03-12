@@ -1,0 +1,174 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="width:402px; height:302px;">
+
+<defs>
+
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+
+      <stop offset="0%" style="stop-color:rgb(150,150,150);stop-opacity:1" />
+
+      <stop offset="100%" style="stop-color:rgb(255,255,255);stop-opacity:1" />
+
+    </linearGradient>
+
+</defs>
+
+  <rect width="400" height="300" fill="url(#grad1)" style="stroke-width:1;stroke:black" />
+
+   <circle cx="10" cy="10" r="15" stroke="black"
+
+  stroke-width="1" fill="red" id="ball" onclick="ballHit();" />
+
+</svg>
+
+
+<script type="text/javascript">
+
+var gravity = 0.25;
+
+var dX = 1.5;
+
+var dY = 0;
+
+
+
+var width = 400;
+
+var height = 300;
+
+var radius = 15;
+
+var x = radius ;
+
+var y = radius ;
+
+var dragY = 0.035;
+
+var dragX = 0.001;
+
+var time = 0;
+
+function bounceBall(){
+
+  var ball = document.getElementById('ball');
+
+  
+
+  if ( x + radius + dX > width|| x - radius + dX < 0){
+
+      dX = -dX ;
+
+  }
+
+  if ( y + radius + dY > height || y - radius + dY <= 0){
+
+      dY= -dY;
+
+      //alert(y);
+
+  }
+
+ 
+
+  x = x + dX;
+
+  y = y + dY;
+
+  dY += gravity;
+
+  ball.setAttribute("cx", x);
+
+  ball.setAttribute("cy", y);
+
+  dY = dY > 0 ? dY -= dragY : dY += dragY; 
+
+  dX = dX > 0 ? dX -= dragX : dX += dragX; 
+
+  time += 16;
+
+  if ( time > 10000 ){
+
+     reset();
+
+  }
+
+}
+
+function ballHit(){
+
+   alert("You Hit Me!");
+
+   if ( radius > 6 ){
+
+       radius -= 2;
+
+   }
+
+   window.clearInterval(interval);
+
+   
+
+   
+
+   var ball = document.getElementById('ball');
+
+   ball.setAttribute("radius", radius);
+
+   reset();
+
+   interval = window.setInterval(bounceBall, 16);
+
+}
+
+function reset(){
+
+   dX = 1.5;dY = 0;
+
+   x=radius ;y=radius ;
+
+   time = 0;
+
+   ball.setAttribute("cx", x);
+
+   ball.setAttribute("cy", y);  
+
+}
+
+
+
+var interval = window.setInterval(bounceBall, 16);
+
+</script>
+
+<animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 985 472" to="25 985 472" dur=".5" repeatCount="indefinite">
+  
+var speed = 1000;
+
+var s = Snap('.js-lamp' ); 
+    
+var head = this.s.select('.js-lamp-head');
+var light = this.s.select('.js-lamp-light');
+var armTop = this.s.select('.js-lamp-armTop');
+var armBottom = this.s.select('.js-lamp-armBottom');
+
+function firstAnimation() {
+    armTop.animate( { 'path' : 'M757.105,568.676l0.003-0.007L166.023,351.637l-6.818,18.568L750.29,587.237l0.043-0.118 c2.172,0.805,4.631,0.86,6.961-0.042c5.064-1.961,7.58-7.656,5.619-12.721C761.848,571.604,759.676,569.613,757.105,568.676z' }, speed * 2, mina.easeout);
+
+    armBottom.animate( { 'path' : 'M633.593,507.174c-11.543-4.817-24.805,0.634-29.623,12.177c-0.885,2.12-1.42,4.298-1.638,6.471 L293.675,753.489c-2.313,1.453-4.22,3.6-5.352,6.312c-2.915,6.985,0.384,15.012,7.369,17.927c4.614,1.926,9.674,1.127,13.423-1.642 l0.155,0.21l307.738-226.989c11.334,4.205,24.064-1.254,28.762-12.511C650.587,525.254,645.135,511.992,633.593,507.174z' }, speed * 2, mina.easeout);
+
+    head.animate( { 'path' : 'M207.897,378.104l-11.312-64.009c0,0-6.147-3.555-27.745-4.686l-2.599-14.707 c0,0-2.109-1.22-9.971-1.316c-7.863-0.097-10.214,1.534-10.214,1.534l-2.083,14.575c-18.219,1.34-24.113,5.427-24.113,5.427 l-8.821,61.721c-85.354,23.495-88.833,111.567-88.833,111.567l273.995,0.569C296.202,488.78,290.35,403.649,207.897,378.104z' }, speed * 2, mina.easeout);
+
+    light.animate( { 'cx': '159.205', 'cy': '488.78', 'ry': '89.824', 'rx': '136.999' }, speed * 2, mina.easeout, secondAnimation);
+}
+
+function secondAnimation() {                        
+    armTop.animate( { 'path' : 'M582.165,516.007l0.006-0.005L151.426,56.716l-14.428,13.531l430.745,459.285l0.092-0.086 c1.579,1.694,3.752,2.847,6.239,3.087c5.406,0.521,10.211-3.438,10.732-8.844C585.089,520.752,584.042,517.999,582.165,516.007z' }, speed, mina.easeout);
+
+    armBottom.animate( { 'path' : 'M464.305,389.827c-12.449,1.21-21.56,12.283-20.349,24.732c0.222,2.286,0.78,4.459,1.615,6.476 l-164.394,346.52c-1.351,2.373-2.017,5.167-1.733,8.092c0.732,7.534,7.434,13.048,14.968,12.315 c4.976-0.484,9.057-3.579,11.053-7.791l0.236,0.112l163.905-345.488c11.975-1.651,20.613-12.479,19.433-24.62 C487.827,397.727,476.754,388.616,464.305,389.827z' }, speed, mina.easeout);
+
+    head.animate( { 'path' : 'M185.69,139.981L174.379,34.224c0,0-6.147-5.874-27.745-7.742l-2.599-24.3 c0,0-2.109-2.015-9.971-2.175c-7.863-0.16-10.214,2.535-10.214,2.535l-2.083,24.082c-18.219,2.213-24.113,8.967-24.113,8.967 l-8.821,101.978C3.48,176.387,0,321.903,0,321.903l273.995,0.94C273.995,322.843,268.143,182.186,185.69,139.981z' }, speed, mina.easeout);
+
+    light.animate( { 'cx': '136.998', 'cy': '322.373', 'ry': '25.344', 'rx': '136.998' }, speed, mina.easeout, firstAnimation);
+}
+
+firstAnimation();

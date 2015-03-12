@@ -1,0 +1,1 @@
+window.addEventListener("load",function(){var t=document.getElementById("cloud1");t.animate({transform:"translate(30) rotate(45 50 50)"},5e3)});

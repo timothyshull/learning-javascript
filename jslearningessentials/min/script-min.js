@@ -1,0 +1,1 @@
+var s=new String("hello");console.log(s+" world"),console.log(s[4]),console.log("string"),console.log(typeof s);var s1=new String("hello"),s2=new String("hello");console.log(s1===s2),console.log(s1==s2),console.log("hello".toUpperCase()),"hello".someProperty=17,console.log("hello".someProperty);

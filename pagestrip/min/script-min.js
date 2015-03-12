@@ -1,0 +1,1 @@
+window.addEventListener("load",function(){var o=$(document.body);console.log(o)},!1);

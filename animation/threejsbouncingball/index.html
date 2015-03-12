@@ -1,0 +1,197 @@
+<html>
+<head>
+<title>A simple Three.js prototype of a bouncing ball</title>
+<style>canvas { width: 100%; height: 100%}</style>
+</head>
+<body>
+<script src="https://rawgithub.com/mrdoob/three.js/master/build/three.js"></script>
+<script>
+gKeyState = Array();
+function onKeyDown(event) {
+    gKeyState[event.keyCode] = true;
+    if (event.keyCode == 87 ) {
+        changeColor();
+    }
+}
+function onKeyUp(event) {
+    gKeyState[event.keyCode] = false;
+}
+window.addEventListener('keydown', onKeyDown, false);
+window.addEventListener('keyup', onKeyUp, false);
+
+var colors = [0xff0000,0x00ff00,0x0000ff];
+var theColor = 0;
+function addLight(x, y, c) {
+    var light = new THREE.SpotLight(c);//, 1.0, 1000);
+    light.position.set( x, y, 2);
+    light.castShadow = true;
+    light.target.position.set(x, y - 10, 0);
+    scene.add( light );
+    
+    /*var geometry = new THREE.SphereGeometry(1);
+    var material = new THREE.MeshBasicMaterial( { color: c } );
+    var sphere = new THREE.Mesh(geometry, material);
+    scene.add(sphere);
+    sphere.position.set(light.position.x,light.position.y,light.position.z);*/
+    
+    return light;
+}
+
+var scene = new THREE.Scene();
+
+var width = window.innerWidth;
+var height = window.innerHeight;
+var camera = new THREE.PerspectiveCamera(25, width / height, 0.1, 1000);
+camera.position.z = 60;
+
+var renderer = new THREE.WebGLRenderer();
+renderer.setSize(width, height);
+
+renderer.shadowMapEnabled = true;
+renderer.shadowMapSoft = true;
+
+renderer.shadowCameraNear = 3;
+renderer.shadowCameraFar = camera.far;
+renderer.shadowCameraFov = 50;
+
+renderer.shadowMapBias = 0.0039;
+renderer.shadowMapDarkness = 1;
+renderer.shadowMapWidth = 1024;
+renderer.shadowMapHeight = 1024;
+
+document.body.appendChild( renderer.domElement );
+
+var geometry = new THREE.SphereGeometry(1);
+var material = new THREE.MeshLambertMaterial({color: 0xffffff});
+var player = new THREE.Mesh(geometry, material);
+player.position.set(0, 1, 0);
+scene.add(player);
+playerVel = [0, 0];
+
+var geometry = new THREE.CubeGeometry(1,1,1);
+var redMaterial = new THREE.MeshLambertMaterial({color: 0xff0000});
+var greenMaterial = new THREE.MeshLambertMaterial({color: 0x00ff00});
+var blueMaterial = new THREE.MeshLambertMaterial({color: 0x0000ff});
+var whiteMaterial = new THREE.MeshLambertMaterial({color: 0xffffff});
+
+var cube;
+var cubes = Array();
+for (var i = 0; i < 3; i++) {
+    cube = new THREE.Mesh( geometry, greenMaterial );
+    cube.position.set(i, 0, 0);
+    //cube.castShadow = true;
+    cube.receiveShadow = true;
+    scene.add(cube);
+    cubes.push(cube);
+}
+for (var i = 5; i < 8; i++) {
+    cube = new THREE.Mesh( geometry, blueMaterial );
+    cube.position.set(i, 2, 0);
+    //cube.castShadow = true;
+    cube.receiveShadow = true;
+    scene.add(cube);
+    cubes.push(cube);
+}
+for (var i = 10; i < 13; i++) {
+    cube = new THREE.Mesh( geometry, redMaterial );
+    cube.position.set(i, 4, 0);
+    //cube.castShadow = true;
+    cube.receiveShadow = true;
+    scene.add(cube);
+    cubes.push(cube);
+}
+for (var i = 17; i < 27; i++) {
+    cube = new THREE.Mesh( geometry, whiteMaterial );
+    cube.position.set(i, 0, 0);
+    //cube.castShadow = true;
+    cube.receiveShadow = true;
+    scene.add(cube);
+    cubes.push(cube);
+}
+
+/*var light = new THREE.DirectionalLight( 0xffffff, 0.5 );
+light.position.set( 3, 5, 0 );
+light.castShadow = true;*/
+
+/*var light = new THREE.PointLight(0x00ffff);//, 1, 100 );
+light.position.set(3, 5, 0);
+scene.add(light);*/
+
+var lights = Array();
+
+lights.push(addLight(1, 10, colors[0]));
+lights.push(addLight(6, 12, colors[0]));
+lights.push(addLight(11, 14, colors[0]));
+lights.push(addLight(22, 12, colors[0]));
+
+//var ambientLight = new THREE.AmbientLight(0x0A0A0A);
+//scene.add(ambientLight);
+//lights.push(ambientLight);
+
+function changeColor() {
+    console.log(theColor);
+    theColor++;
+    theColor %= 3;
+    
+    for (var i=0;i<lights.length;i++) {
+        lights[i].color.setHex(colors[theColor]);
+    }
+}
+changeColor();
+
+function calcVector(p1, p2) {
+    return [p1[0] - p2[0], p1[1] - p2[1]];
+}
+function calcDistance(vect) {
+    return Math.sqrt(Math.pow(vect[0], 2) + Math.pow(vect[1], 2));
+}
+      
+function render() {
+    requestAnimationFrame(render);
+    
+    var onplatform = false;
+    for (var i = 0; i< cubes.length;i++) {
+        if (1.5 > calcDistance(calcVector([player.position.x, player.position.y], [cubes[i].position.x, cubes[i].position.y]))) {
+            playerVel[0] = 0;
+            playerVel[1] = 0;
+            onplatform = true;
+            break;
+        }
+    }
+    if (onplatform == false) {
+        //gravity
+        playerVel[1] -= 0.01
+    }
+    if (gKeyState[65]) { //a - left
+        playerVel[0] -= 0.05;
+    }
+    if (gKeyState[68]) { //d - right
+        playerVel[0] += 0.05;
+    }
+    playerVel[0] *= 0.8;//friction
+    if (gKeyState[32] && onplatform==true) { //spacebar - jump
+    //if (onplatform==true) { //spacebar - jumplocal
+        playerVel[1] += 0.2;
+    }
+    
+    player.position.x += playerVel[0];
+    player.position.y += playerVel[1];
+
+    if (player.position.x > camera.position.x + 4) {
+        camera.position.x += 0.1;
+    } else if (player.position.x < camera.position.x - 4) {
+        camera.position.x -= 0.1;
+    }
+    if (player.position.y > camera.position.y + 4) {
+        camera.position.y += 0.1;
+    } else if (player.position.y < camera.position.y - 4) {
+        camera.position.y -= 0.1;
+    }
+    
+    renderer.render(scene, camera);
+}
+render();
+alert("Press A and D to move. Hold space to bounce. W toggles through red, green and blue lighting");
+</script>
+</body>
+</html>

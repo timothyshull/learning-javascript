@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Blank HTML">
+  <meta name="keywords" content="HTML,CSS,JavaScript">
+  <meta name="author" content="Tim Shull">
+  <meta name="copyright" content="&copy; 2015 Timothy Shull, Jr.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <svg width="1440px" height="720px" viewBox="0 0 1440 720" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+  <svg width="1440px" height="720px" id="cloud1">
+    <g id="cloud1Main" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <path d="M148.880468,45.2909931 C142.923237,19.0498689 125.082694,0 104,0 C83.5219154,0 66.1026918,17.972912 59.6611725,43.0513871 C58.7791971,43.017254 57.8919913,43 57,43 C25.5197693,43 0,64.490332 0,91 C0,114.059978 19.3101627,133.321951 45.0563766,137.944563 L45.0563766,137.944563 C50.7261785,159.008271 78.5410376,175 112,175 C149.555363,175 180,154.852814 180,130 C180,129.851417 179.998912,129.703001 179.99674,129.554758 C208.83283,126.50578 231,108.16723 231,86 C231,61.699471 204.360943,42 171.5,42 C163.492191,42 155.853861,43.1698278 148.880468,45.2909931 L148.880468,45.2909931 Z" id="Oval-5" fill="#F5F5F5" sketch:type="MSShapeGroup"></path>
+        <animateMotion dur="6s" repeatCount="indefinite">
+           <mpath xlink:href="#Oval-5"/>
+        </animateMotion>
+    </g>
+
+    <circle cx="" cy="" r="5" fill="red">
+
+        <!-- Define the motion path animation -->
+        <animateMotion dur="6s" repeatCount="indefinite">
+           <mpath xlink:href="#Oval-5"/>
+        </animateMotion>
+    </circle>
+
+
+<!--     <animate attributeName="width" attributeType="XML"
+             begin="0s" dur="9s" fill="freeze" from="231px" to="800px" />
+                 <animate attributeName="height" attributeType="XML"
+             begin="0s" dur="9s" fill="freeze" from="175" to="300" /> -->
+
+</svg>
+</svg>
+
+<svg width="8cm" height="3cm"  viewBox="0 0 800 300"
+     xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <desc>Example anim01 - demonstrate animation elements</desc>
+  <rect x="1" y="1" width="798" height="298" 
+        fill="none" stroke="blue" stroke-width="2" />
+  <!-- The following illustrates the use of the 'animate' element
+        to animate a rectangles x, y, and width attributes so that
+        the rectangle grows to ultimately fill the viewport. -->
+  <rect id="RectElement" x="300" y="100" width="300" height="100"
+        fill="rgb(255,255,0)"  >
+    <animate attributeName="x" attributeType="XML"
+             begin="0s" dur="9s" fill="freeze" from="300" to="0" />
+    <animate attributeName="y" attributeType="XML"
+             begin="0s" dur="9s" fill="freeze" from="100" to="0" />
+    <animate attributeName="width" attributeType="XML"
+             begin="0s" dur="9s" fill="freeze" from="300" to="800" />
+    <animate attributeName="height" attributeType="XML"
+             begin="0s" dur="9s" fill="freeze" from="100" to="300" />
+  </rect>
+  <!-- Set up a new user coordinate system so that
+        the text string's origin is at (0,0), allowing
+        rotation and scale relative to the new origin -->
+  <g transform="translate(100,100)" >
+    <!-- The following illustrates the use of the 'set', 'animateMotion',
+         'animate' and 'animateTransform' elements. The 'text' element 
+         below starts off hidden (i.e., invisible). At 3 seconds, it:
+           * becomes visible
+           * continuously moves diagonally across the viewport
+           * changes color from blue to dark red
+           * rotates from -30 to zero degrees
+           * scales by a factor of three. -->
+    <text id="TextElement" x="0" y="0"
+          font-family="Verdana" font-size="35.27" visibility="hidden"  > 
+      It's alive!
+      <set attributeName="visibility" attributeType="CSS" to="visible"
+           begin="3s" dur="6s" fill="freeze" />
+      <animateMotion path="M 0 0 L 100 100" 
+           begin="3s" dur="6s" fill="freeze" />
+      <animate attributeName="fill" attributeType="CSS"
+           from="rgb(0,0,255)" to="rgb(128,0,0)"
+           begin="3s" dur="6s" fill="freeze" />
+      <animateTransform attributeName="transform" attributeType="XML"
+           type="rotate" from="-30" to="0"
+           begin="3s" dur="6s" fill="freeze" />
+      <animateTransform attributeName="transform" attributeType="XML"
+           type="scale" from="1" to="3" additive="sum"
+           begin="3s" dur="6s" fill="freeze" />
+    </text>
+  </g>
+</svg>
+
+  <!-- // <script src="js/main.js"></script> -->
+</body>
+</html>

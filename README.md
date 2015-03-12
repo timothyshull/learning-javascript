@@ -1,0 +1,3 @@
+###Learning JavaScript
+
+These projects are small projects that I completed to build a better understanding of JavaScript from the ground up. My approach has been the same as the approach I take to learning a musical instrument...start with the basics and repeat the basics as you build on them. I completed these projects while also brushing up on HTML and CSS and reading a ton of books and articles on JavaScript to make sure that I have a solid big-picture understanding of the language as a whole.  

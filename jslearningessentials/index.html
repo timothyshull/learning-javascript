@@ -1,0 +1,2859 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>JS Study</title>
+  <meta content="Blank HTML" name="description">
+  <meta content="HTML,CSS,JavaScript" name="keywords">
+  <meta content="Tim Shull" name="author">
+  <meta content="&copy; 2015 Timothy Shull, Jr." name="copyright">
+  <link href="css/normalize.css" rel="stylesheet">
+  <link href="css/skeleton.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="offset-by-one column">
+    <div class="ten columns">
+      <h1>JS Study Guide</h1>
+
+      <h2>General Notes</h2>
+
+      <h5>Function Declaration</h5>
+      <pre>
+<code>function diffOfSquares (a, b) {
+         return a*a - b*b;
+     }
+     </code>
+</pre>
+
+      <p>Builds in memory immediately when the program loads</p>
+
+      <h5>Function Expression</h5>
+      <pre>
+<code>var diff = function diffOfSquares (a, b) {
+         return a*a - b*b;
+     };
+     </code>
+</pre>
+
+      <p>The function keyword will now assign the following function to the variable.</p>
+
+      <h5>Anonymous Function</h5>
+      <pre>
+<code>var diff = function (a, b) { 
+         return a*a - b*b;
+     };
+     </code>
+</pre>
+
+      <h5>Using FE&rsquo;s with Arrays and Map[]</h5>
+      <pre>
+<code>var numbers = [12, 4, 3, 9, 8, 6, 10, 1];
+
+     var results = numbers.map(function (arrayCell) {
+         return arrayCell *2;
+     });
+     </code>
+</pre>
+
+      <h5>Immediately Invoked Function Expression</h5>
+      <pre>
+<code>( function ( ) {
+         alert("Quick! You've got a Fast Pass to " + pass + "!");
+     } )();
+     </code>
+</pre>
+
+      <h5>Hoisting</h5>
+
+      <p>1) First, memory is set aside for all necessary variables and declared functions. Variables are declared at the top of a scope and assigned a value of undefined. Functions are declared, then variables are assigned. 2) Function Expressions are never hoisted! They are treated as assignments.</p>
+
+      <h5>Object Literal</h5>
+      <pre>
+<code>var myBox = { height: 6, width: 8, length: 10, volume: 480,
+         material: "cardboard", contents: booksArray
+     };
+     </code>
+</pre>
+
+      <h5>Property Access</h5>
+      <pre>
+<code>myBox.width;
+
+     myBox["volume"];
+     </code>
+</pre>
+
+      <p>Brackets enable dynamic property access</p>
+      <pre>
+<code>for(var i = 1, i &lt;= myBox["# of stops"]; i++){
+         console.log( myBox["destination" + i] );
+     }
+
+     function addBook (box, name, writer){
+         box["# of Books"]++;
+         box["book" + box["# of Books"]] = {title: name, author: writer};
+     }
+     </code>
+</pre>
+
+      <p>ECMAScript 5 introduced a new method: Object.create(). Calling this method creates a new object. The prototype of this object is the first argument of the function: A second way to build objects USING Object.create() Using inheritance, we can create new Objects with our existing Objects as prototypes</p>
+      <pre>
+<code>var shoe = { sixe: 6, gender: "women", construction: "slipper"};
+
+     var magicShoe = Object.create( shoe );
+     </code>
+</pre>
+
+      <p>Examining the inheritance within our shoes We can use an inherited method to demonstrate our newly created prototype chain</p>
+      <pre>
+<code>Object.prototype.isPrototypeOf( shoe );
+     shoe.isPrototypeOf( magicShoe );
+
+
+     function Shoe (shoeSize, shoeColor, forGender, constructStyle) {
+         this.size = shoeSize;
+         this.color = shoeColor;
+         this.gender = forGender;
+         this.construction = constructStyle;
+
+         this.putOn = function () { alert("Shoe’s on!"); };
+         this.takeOff = function () { alert("Uh, what’s that smell?"); };
+     }
+
+     var beachShoe = new Shoe
+     ( 10, "blue", "women", "flipflop" );
+     </code>
+</pre>
+
+      <h5>Assigning a prototype to a constructor</h5>
+
+      <p>By setting a constructor’s prototype property, every new instance will refer to it for extra properties!</p>
+      <pre>
+<code>function Shoe (shoeSize, shoeColor, forGender, constructStyle) {
+         this.size = shoeSize;
+         this.color = shoeColor;
+         this.gender = forGender;
+         this.construction = constructStyle;
+     }
+
+     Shoe.prototype = {
+         putOn: function () { alert ("Shoe’s on!"); },
+         takeOff: function () { alert ("Uh, what’s that smell?"); }
+     };
+
+     Prototypes can also refer back to the instance!
+     Shoe.prototype = {
+         putOn: function () { alert ("Your " + this.construction + "’s" + "on!"); }, takeOff: function () { alert ("Phew! Somebody’s size " + this.size + "’s" +
+     };
+     beachShoe.
+     takeOff
+     ();
+     </code>
+</pre>
+
+      <h5>Finding an object’s constructor and prototype</h5>
+
+      <p>Some inherited properties provide ways to find an Object’s nearest prototype ancestor</p>
+      <pre>
+<code>Object.constructor;
+     Object.constructor.prototype;
+     </code>
+</pre>
+
+      <h2>Event Listeners</h2>
+
+      <h5>EventTarget.addEventListener (removeEventListener)</h5>
+
+      <h5>event.type</h5>
+
+      <ul>
+        <li>DOMFocusIn</li>
+
+        <li>DOMFocusOut</li>
+
+        <li>DOMActivate</li>
+      </ul>
+
+      <h5>Mouse Events</h5>
+
+      <ul>
+        <li>click</li>
+
+        <li>mousedown</li>
+
+        <li>mouseup</li>
+
+        <li>mouseover</li>
+
+        <li>mousemove</li>
+
+        <li>mouseout</li>
+      </ul>
+
+      <h5>Mutation Event</h5>
+
+      <ul>
+        <li>DOMSubtreeModified</li>
+
+        <li>DOMNodeInserted</li>
+
+        <li>DOMNodeRemoved</li>
+
+        <li>DOMNodeRemovedFromDocument</li>
+
+        <li>DOMNodeInsertedIntoDocument</li>
+
+        <li>DOMAttrModified</li>
+
+        <li>DOMCharacterDataModified</li>
+      </ul>
+
+      <h5>HTML Events</h5>
+
+      <ul>
+        <li>load</li>
+
+        <li>unload</li>
+
+        <li>abort</li>
+
+        <li>error</li>
+
+        <li>select</li>
+
+        <li>change</li>
+
+        <li>submit</li>
+
+        <li>reset</li>
+
+        <li>focus</li>
+
+        <li>blur</li>
+
+        <li>resize</li>
+
+        <li>scroll</li>
+      </ul>
+
+      <h5>More event types:</h5>
+
+      <p>The registrable events depend on the EventTarget type , e.g.</p>
+
+      <h6>TouchEvent includes:</h6>
+
+      <ul>
+        <li>touchstart</li>
+
+        <li>touchend</li>
+
+        <li>touchmove</li>
+
+        <li>touchcancel</li>
+      </ul>
+
+      <h5>Event Capturing and Event Bubbling</h5>
+
+      <p>For nested objects (elem 1 with elem 2 nested inside) with the same type of event handler (onclick for example) Event capturing means the event on elem 1 takes place first Event bubbling means that the event on elem 2 takes place first</p>
+
+      <p>Events are handled in two phases: capturing and bubbling. During the capturing phase, events are dispatched to parent objects before they are dispatched to event targets that are lower in the object hierarchy. During the bubbling phase, events are dispatched to target elements first and then to parent elements. You can register event handlers for either event phase.</p>
+
+      <h5>Full List of Events</h5>
+
+      <p>Event &gt; Event Reference <a href="https://developer.mozilla.org/en-US/docs/Web/Events">Event Reference - MDN</a></p>
+
+      <h2>JS Good Parts</h2>
+
+      <p>Review Chapter 2 - Grammar for a collection of big picture railroad diagrams</p>
+
+      <p>Douglas Crockford uses this defined method constructor throughout the examples</p>
+      <pre>
+<code>Function.prototype.method = function (name, func) {
+         this.prototype[name] = func;
+         return this;
+     };
+     </code>
+</pre>
+
+      <h3>Ch. 3 Objects</h3>
+      <pre>
+<code>var empty_object = {};
+
+     var stooge = {
+         "first-name": "Jerome",
+         "last-name": "Howard"
+     };
+
+     Nested - 
+     var flight = {
+         airline: "Oceanic",
+         number: 815,
+         departure: {
+             IATA: "SYD",
+             time: "2004-09-22 14:55",
+             city: "Sydney"
+         }, 
+         arrival: {
+             IATA: "LAX",
+             time: "2004-09-23 10:42",
+             city: "Los Angeles"
+         } 
+     };
+     </code>
+</pre>
+
+      <h5>Retrieval</h5>
+      <pre>
+<code>stooge["first-name"]     // "Joe"
+     flight.departure.IATA    // "SYD"
+     </code>
+</pre>
+
+      <p>The undefined value is produced if an attempt is made to retrieve a nonexistent member</p>
+
+      <p>Attempting to retrieve values from undefined will throw a TypeError exception. This can be guarded against with the &amp;&amp; operator</p>
+      <pre>
+<code>flight.equipment // undefined
+     flight.equipment.model // throw "TypeError"
+     flight.equipment &amp;&amp; flight.equipment.model // undefined
+     </code>
+</pre>
+
+      <h5>Update</h5>
+
+      <p>stooge[&lsquo;middle-name&rsquo;] = &lsquo;Lester&rsquo;; stooge.nickname = &lsquo;Curly&rsquo;;</p>
+
+      <h5>Reference</h5>
+
+      <p>Objects are passed around by reference. They are never copied</p>
+
+      <h5>Prototype</h5>
+
+      <p>Every object is linked to a prototype object from which it can inherit properties. All objects created from object literals are linked to Object.prototype, an object that comes standard with JavaScript.</p>
+
+      <h5>Reflection</h5>
+
+      <p>Use the typeof operator to determinine the type of a property</p>
+      <pre>
+<code>typeof flight.number  // 'number'
+     </code>
+</pre>
+
+      <p>Any property on the prototype chain can produce a value</p>
+      <pre>
+<code>typeof flight.toString    // 'function'
+     </code>
+</pre>
+
+      <p>The other approach is to use the hasOwnProperty method, which returns true if the object has a particular property. The hasOwnProperty method does not look at the prototype chain</p>
+      <pre>
+<code>flight.hasOwnProperty('number')         // true
+     </code>
+</pre>
+
+      <h5>Enumeration</h5>
+
+      <p>The for in statement can loop over all of the property names in an object. The enu- meration will include all of the properties filter out the values hasOwnProperty method and using typeof to exclude functions</p>
+      <pre>
+<code>var name;
+     for (name in another_stooge) {
+         if (typeof another_stooge[name] !== 'function') {
+             document.writeln(name + ': ' + another_stooge[name]);
+         } 
+     }
+     </code>
+</pre>
+
+      <h5>Delete</h5>
+      <pre>
+<code>delete another_stooge.nickname;
+     </code>
+</pre>
+
+      <p>It will remove a property from the object if it has one. It will not touch any of the objects in the proto- type linkage.</p>
+
+      <h5>Global Abatement</h5>
+
+      <p>Minimize the use of global variables by creating a single global variable for your application, and use it as a container for your application</p>
+      <pre>
+<code>var MYAPP = {};
+
+     MYAPP.stooge = {
+         "first-name": "Joe",
+         "last-name": "Howard"
+     };
+
+     MYAPP.flight = {
+         airline: "Oceanic",
+         number: 815,
+         departure: {
+             IATA: "SYD",
+             time: "2004-09-22 14:55",
+             city: "Sydney"
+         }, 
+         arrival: {
+             IATA: "LAX",
+             time: "2004-09-23 10:42",
+             city: "Los Angeles"
+         }
+     };
+     </code>
+</pre>
+
+      <h3>Ch. 4 - Functions</h3>
+
+      <p>Function objects are linked to Function.prototype (which is itself linked to Object.prototype).</p>
+
+      <p>Every function object is also created with a prototype property. Its value is an object with a constructor property whose value is the function.</p>
+
+      <p>Since functions are objects, they can be used like any other value. Functions can be stored in variables, objects, and arrays. Functions can be passed as arguments to functions, and functions can be returned from functions. Also, since functions are objects, functions can have methods.</p>
+
+      <p>The thing that is special about functions is that they can be invoked.</p>
+
+      <h5>Function Literal</h5>
+      <pre>
+<code>var add = function (a, b) { 
+         return a + b;
+     };
+     </code>
+</pre>
+
+      <p>1) function 2) (optional) name 3) parameters 4) Statements with optional return</p>
+
+      <p>Declaration is function literal without the variable assignment, function expression requires variable assignment</p>
+
+      <h5>Invocation</h5>
+
+      <p>Invoking a function suspends the execution of the current function, passing control and parameters to the new function.</p>
+
+      <p>Functions also have this and arguments</p>
+
+      <h5>Method Invocation</h5>
+
+      <p>When a function is stored as a property of an object, we call it a method. When a method is invoked, this is bound to that object. If an invocation expression con- tains a refinement (that is, a . dot expression or [subscript] expression), it is invoked as a method</p>
+
+      <h5>Function Invocation</h5>
+      <pre>
+<code>var sum = add(3, 4);    // sum is 7
+     </code>
+</pre>
+
+      <p>When a function is invoked with this pattern, this is bound to the global object If a function is invoked within a method, this has to be explicitly bound to a new variable, that</p>
+
+      <p>Augment myObject with a double method.</p>
+      <pre>
+<code>myObject.double = function () {
+         var that = this; // Workaround.
+         var helper = function () {
+             that.value = add(that.value, that.value);
+         };
+         helper(); // Invoke helper as a function. 
+     };
+     </code>
+</pre>
+
+      <p>Invoke double as a method.</p>
+      <pre>
+<code>myObject.double( ); 
+     document.writeln(myObject.getValue()); // 6
+     </code>
+</pre>
+
+      <h5>Constructor Invocation</h5>
+
+      <p>If a function is invoked with the new prefix, then a new object will be created with a hidden link to the value of the function’s prototype member, and this will be bound to that new object.</p>
+
+      <p>Create a constructor function called Quo. It makes an object with a status property.</p>
+      <pre>
+<code>var Quo = function (string) {
+         this.status = string;
+     };
+
+     Quo.prototype.get_status = function () { 
+         return this.status;
+     };
+     </code>
+</pre>
+
+      <p>Make an instance of Quo.</p>
+      <pre>
+<code>var myQuo = new Quo("confused");
+     document.writeln(myQuo.get_status()); // confused
+     </code>
+</pre>
+
+      <p>Use of this style of constructor functions is not recommended. We will see better alternatives in the next chapter.</p>
+
+      <h5>Apply Invocation</h5>
+
+      <p>The apply method lets us construct an array of arguments to use to invoke a func- tion. It also lets us choose the value of this. The apply method takes two parame- ters. The first is the value that should be bound to this. The second is an array of parameters.</p>
+
+      <p>Make an array of 2 numbers and add them. var array = [3, 4]; var sum = add.apply(null, array); // sum is 7 Make an object with a status member. var statusObject = { status: &lsquo;A-OK&rsquo; }; statusObject does not inherit from Quo.prototype, but we can invoke the get_status method on statusObject even though statusObject does not have a get_status method. var status = Quo.prototype.get_status.apply(statusObject); // status is &lsquo;A-OK&rsquo;</p>
+
+      <h5>Arguments</h5>
+
+      <p>It gives the function access to all of the arguments that were sup- plied with the invocation, including excess arguments that were not assigned to parameters.</p>
+      <pre>
+<code>var sum = function () { var i, sum = 0;
+         for (i = 0; i &lt; arguments.length; i += 1) {
+             sum += arguments[i];
+         }
+         return sum;
+     };
+     </code>
+</pre>
+
+      <h5>Return</h5>
+
+      <p>The return statement can be used to cause the function to return early. When return is executed, the function returns immediately without executing the remaining statements. A function always returns a value. If the return value is not specified, then undefined is returned. If the function was invoked with the new prefix and the return value is not an object, then this (the new object) is returned instead.</p>
+
+      <h5>Exceptions</h5>
+      <pre>
+<code>var add = function (a, b) {
+         if (typeof a !== 'number' || typeof b !== 'number') {
+             throw {
+                 name: 'TypeError',
+                 message: 'add needs numbers'
+             }; 
+         }
+         return a + b; 
+     }
+     </code>
+</pre>
+
+      <p>The throw statement interrupts execution of the function. It should be given an exception object containing a name property that identifies the type of the exception, and a descriptive message property.</p>
+
+      <p>Make a try_it function that calls the new add function incorrectly.</p>
+      <pre>
+<code>var try_it = function () { 
+         try {
+             add("seven");
+         } catch (e) {
+             document.writeln(e.name + ': ' + e.message);
+         }
+     }
+     try_it( );
+     </code>
+</pre>
+
+      <h5>Augmenting Types</h5>
+
+      <p>JavaScript allows the basic types of the language to be augmented. In Chapter 3, we saw that adding a method to Object.prototype makes that method available to all objects. This also works for functions, arrays, strings, numbers, regular expressions, and booleans.</p>
+
+      <h5>Recursion</h5>
+
+      <h5>Scope</h5>
+
+      <p>JavaScript does have function scope. That means that the parameters and variables defined in a function are not visible outside of the function, and that a variable defined anywhere within a function is visible everywhere within the function.</p>
+
+      <p>In many modern languages, it is recommended that variables be declared as late as possible, at the first point of use. That turns out to be bad advice for JavaScript because it lacks block scope. So instead, it is best to declare all of the variables used in a function at the top of the function body.</p>
+
+      <h5>Closure</h5>
+      <pre>
+<code>var myObject = function () { 
+         var value = 0;
+         return {
+             increment: function (inc) {
+                 value += typeof inc === 'number' ? inc : 1;
+             },
+             getValue: function () { 
+                 return value;
+             } 
+         };
+     }( );
+
+     var quo = function (status) {
+         return {
+             get_status: function () { 
+                 return status;
+             } 
+         };
+     };
+     // Make an instance of quo.
+     var myQuo = quo("amazed");
+     document.writeln(myQuo.get_status( ));
+     </code>
+</pre>
+
+      <p>The get_status method still has privileged access to quo’s status property even though quo has already returned. get_status does not have access to a copy of the parameter; it has access to the parameter itself. This is possible because the function has access to the context in which it was created. This is called closure.</p>
+
+      <h5>Callbacks</h5>
+
+      <p>Synchronous</p>
+      <pre>
+<code>request = prepare_the_request();
+     response = send_request_synchronously(request); 
+     display(response);
+     </code>
+</pre>
+
+      <p>Asynchronous</p>
+      <pre>
+<code>request = prepare_the_request(); 
+     send_request_asynchronously(request, function (response) {
+       display(response);
+     });
+     </code>
+</pre>
+
+      <h5>Module</h5>
+
+      <p>From Adequately Good</p>
+      <pre>
+<code>(function () {
+       // ... all vars and functions are in this scope only
+       // still maintains access to all globals
+     }());
+     </code>
+</pre>
+
+      <p>Notice the () around the anonymous function. This is required by the language, since statements that begin with the token function are always considered to be function declarations. Including () creates a function expression instead.</p>
+
+      <h5>Global import</h5>
+      <pre>
+<code>(function ($, YAHOO) {
+       // now have access to globals jQuery (as $) and YAHOO in this code
+     }(jQuery, YAHOO));
+     </code>
+</pre>
+
+      <p>By passing globals as parameters to our anonymous function, we import them into our code, which is both clearer and faster than implied globals.</p>
+
+      <h5>Module Export</h5>
+      <pre>
+<code>var MODULE = (function () {
+         var my = {},
+         privateVariable = 1;
+
+         function privateMethod() {
+             // ...
+         }
+
+         my.moduleProperty = 1;
+         my.moduleMethod = function () {
+             // ...
+         };
+
+         return my;
+     }());
+     </code>
+</pre>
+
+      <h5>Augmentation</h5>
+      <pre>
+<code>var MODULE = (function (my) {
+         my.anotherMethod = function () {
+             // added method...
+         };
+
+         return my;
+     }(MODULE));
+     </code>
+</pre>
+
+      <p>To augment modules. First, we import the module, then we add properties, then we export it.</p>
+
+      <p>Loose Augmentation - flexible multi-part modules that can load themselves in any order</p>
+      <pre>
+<code>var MODULE = (function (my) {
+         // add capabilities...
+
+         return my;
+     }(MODULE || {}));
+     </code>
+</pre>
+
+      <p>Tight Augmentation - implies a set loading order, but allows overrides.</p>
+      <pre>
+<code>var MODULE = (function (my) {
+         var old_moduleMethod = my.moduleMethod;
+
+         my.moduleMethod = function () {
+             // method override, has access to old through old_moduleMethod...
+         };
+
+         return my;
+     }(MODULE));
+     </code>
+</pre>
+
+      <h5>Cross file private state</h5>
+      <pre>
+<code>var MODULE = (function (my) {
+         var _private = my._private = my._private || {},
+         _seal = my._seal = my._seal || function () {
+             delete my._private;
+             delete my._seal;
+             delete my._unseal;
+         },
+         _unseal = my._unseal = my._unseal || function () {
+             my._private = _private;
+             my._seal = _seal;
+             my._unseal = _unseal;
+         };
+
+         // permanent access to _private, _seal, and _unseal
+
+         return my;
+     }(MODULE || {}));
+
+     // Sub-modules
+
+     MODULE.sub = (function () {
+         var my = {};
+         // ...
+
+         return my;
+     }());
+     </code>
+</pre>
+
+      <h5>Cascade</h5>
+
+      <p>Methods that set or change the state of an object and return this</p>
+
+      <h5>Curry</h5>
+
+      <p>Currying applies a function with an explicit subset of arguments</p>
+      <pre>
+<code>Function.method('curry', function () { 
+         var slice = Array.prototype.slice, args = slice.apply(arguments),
+         that = this; return function () {
+             return that.apply(null, args.concat(slice.apply(arguments)));
+         };
+     });
+     </code>
+</pre>
+
+      <h5>Memoization</h5>
+
+      <p>Functions use objects to remember the results of previous operations</p>
+      <pre>
+<code>var fibonacci = function () { 
+         var memo = [0, 1];
+         var fib = function (n) {
+             var result = memo[n];
+             if (typeof result !== 'number') {
+                 result = fib(n - 1) + fib(n - 2);
+                 memo[n] = result;
+             }
+             return result;
+         };
+         return fib; 
+     }( );
+     </code>
+</pre>
+
+      <h3>Ch. 5 - Inheritance</h3>
+
+      <h5>Pseudoclassical</h5>
+
+      <p>We can define a constructor and augment its prototype:</p>
+      <pre>
+<code>var Mammal = function (name) {
+         this.name = name;
+     };
+
+     Mammal.prototype.get_name = function () { 
+         return this.name;
+     };
+
+     Mammal.prototype.says = function () { 
+         return this.saying || '';
+     };
+     </code>
+</pre>
+
+      <p>Generally there are better options for code reuse in JavaScript</p>
+
+      <h5>Object Specifiers</h5>
+
+      <p>Sometimes better to define a constructor that takes a single object instead of a number of parameters</p>
+
+      <h5>Prototypal</h5>
+
+      <p>Prototypal inheritance is conceptually simpler than classical inheritance: a new object can inherit the properties of an old object.</p>
+
+      <h5>Differential Inheritance</h5>
+      <pre>
+<code>var myMammal = {
+         name : 'Herb the Mammal', 
+         get_name : function () {
+             return this.name;
+         },
+         says : function () {
+             return this.saying || '';
+         } 
+     };
+
+     var myCat = Object.create(myMammal);
+
+     myCat.purr = function (n) {
+         var i, s = '';
+         for (i = 0; i &lt; n; i += 1) {
+             if (s) {
+                 s += '-';
+             }
+             s += 'r'; 
+         }
+         return s; 
+     };
+     </code>
+</pre>
+
+      <h5>Functional</h5>
+
+      <p>Using the module pattern we can achieve private variables in inheritance</p>
+
+      <p>1) Create object (literal or call constructor or Object.create) 2) Optional private instances or methods 3) Augments object with methods that have privileged access to properties/methods in step 2 4) Returns object</p>
+      <pre>
+<code>var constructor = function (spec, my) {
+         var that, other private instance variables; 
+         my = my || {};
+         Add shared variables and functions to my 
+         that = a new object;
+         Add privileged methods to that
+         return that;
+     };
+     </code>
+</pre>
+
+      <p>The spec object contains all of the information that the constructor needs to make an instance.</p>
+      <pre>
+<code>var cat = function (spec) {
+         spec.saying = spec.saying || 'meow';
+         var that = mammal(spec);
+         that.purr = function (n) {
+             var i, s = '';
+             for (i = 0; i &lt; n; i += 1) {
+                 if (s) {
+                     s += '-';
+                 }
+                 s += 'r'; 
+             }
+             return s; 
+         };
+         that.get_name = function () {
+             return that.says() + ' ' + spec.name + ' ' + that.says(); 
+         }
+         return that;
+     };
+     var myCat = cat({name: 'Henrietta'});
+     </code>
+</pre>
+
+      <h5>Parts</h5>
+
+      <p>Can compose objects from sets of parts</p>
+
+      <h3>Ch. 6 Arrays</h3>
+
+      <h5>Array Literals</h5>
+
+      <p>0 indexed like other languages</p>
+      <pre>
+<code>var empty = [];
+
+     var numbers = ['zero', 'one', 'two', 'three', 'four','five', 'six', 'seven', 'eight', 'nine'];
+     </code>
+</pre>
+
+      <h5>Length</h5>
+      <pre>
+<code>myArray.length;
+     myArray[1000000] = true;
+     myArray.length;
+     </code>
+</pre>
+
+      <p>The length property is the largest integer property name in the array plus one. This is not necessarily the number of properties in the array The [] postfix subscript operator converts its expression to a string using the expres- sion’s toString method if it has one. The length can be set explicitly. Making the length larger does not allocate more space for the array. Making the length smaller will cause all properties with a sub- script that is greater than or equal to the new length to be deleted</p>
+
+      <h5>Delete</h5>
+
+      <p>JavaScript’s arrays are really objects,</p>
+      <pre>
+<code>delete numbers[2];
+     </code>
+</pre>
+
+      <p>Leaves a hole in the array</p>
+
+      <p>better to use splice</p>
+
+      <h5>Enumeration</h5>
+
+      <p>Since JavaScript’s arrays are really objects, the for in statement can be used to iter- ate over all of the properties of an array. To ensure ordering, use for</p>
+
+      <h5>Confusion</h5>
+
+      <p>The rule is simple: when the property names are small sequential integers, you should use an array. Otherwise, use an object. Have to explicitly define is_array function to test (see p 61) Having such a test, it is possible to write functions that do one thing when passed a single value and lots of things when passed an array of values.</p>
+
+      <h5>Methods</h5>
+
+      <p>Because an array is really an object, we can add methods directly to an individual array</p>
+
+      <h5>Dimensions</h5>
+
+      <p>To make a two-dimensional array or an array of arrays, you must build the arrays yourself</p>
+      <pre>
+<code>for (i = 0; i &lt; n; i += 1) {
+         my_array[i] = [];
+     }
+     </code>
+</pre>
+
+      <p>Note: Array.dim(n, []) will not work here. Each element would get a reference to the same array, which would be very bad.</p>
+
+      <p>The cells of an empty matrix will initially have the value undefined. If you want them to have a different initial value, you must explicitly set them.</p>
+
+      <h3>Ch. 7 Regular Expressions</h3>
+
+      <p>Many of JavaScript’s features were borrowed from other languages. The syntax came from Java, functions came from Scheme, and prototypal inheritance came from Self. JavaScript’s Regular Expression feature was borrowed from Perl.</p>
+      <pre>
+<code>var url = "http://www.ora.com:80/goodparts?q#fragment";
+     var result = parse_url.exec(url);
+     var names = ['url', 'scheme', 'slash', 'host', 'port',
+     'path', 'query', 'hash'];
+     var blanks = '       ';
+     var i;
+     for (i = 0; i &lt; names.length; i += 1) {
+         document.writeln(names[i] + ':' +
+         blanks.substring(names[i].length), result[i]);
+     }
+     </code>
+</pre>
+
+      <h5>Construction</h5>
+
+      <p>Regex literal or use new RegExp</p>
+
+      <ul>
+        <li>Choice - vertical bar | , attempts to match each of the sequences in order</li>
+
+        <li>Sequence - factor followed by quantifier</li>
+
+        <li>Factor - char, group, class, or escape sequence</li>
+
+        <li>Escape - \ followed by a specifier</li>
+
+        <li>
+          <p>Group -</p>
+          <pre>
+<code>  1. Capturing - wrapped in ()  
+       2. Non-capturing - (?:), simply matches does not capture the matched text 
+       3. Positive Lookahead (?=), like noncapturing but rewinds after text is captured 
+       4. Negative Lookahead - (?!) matches only if it failed to match
+     </code>
+</pre>
+        </li>
+
+        <li>
+          <p>Class - way to specify one of a set of characters</p>
+        </li>
+
+        <li>Class Escape -</li>
+
+        <li>Regexp Quantifier - Specifies the number of times a factor should match</li>
+      </ul>
+
+      <h3>Ch. 8 - Methods</h3>
+
+      <h5>Array</h5>
+
+      <ul>
+        <li>Appends items to array - array.concat</li>
+
+        <li>Turns all elements into string with separator - array.join</li>
+
+        <li>array.pop</li>
+
+        <li>array.push</li>
+
+        <li>Modifies actual array by reversing elements - array.reverse</li>
+
+        <li>Removes the first element from array and returns it - array.shift</li>
+
+        <li>array.slice</li>
+
+        <li>Takes a compare function and reorders - array.sort</li>
+
+        <li>Removes items and replaces them - array.splice</li>
+
+        <li>Pushes onto front - array.unshift</li>
+      </ul>
+
+      <h5>Function</h5>
+
+      <ul>
+        <li>Invokes a function with a specified this and array of arguments (similar to call) - function.apply</li>
+      </ul>
+
+      <h5>Number</h5>
+
+      <ul>
+        <li>Converts to string in exponential form - number.toExponential</li>
+
+        <li>Converts to string in decimal form - number.toFixed</li>
+
+        <li>Converts to string in decimal form - number.toPrecision</li>
+
+        <li>Converts to string - number.toString</li>
+      </ul>
+
+      <h5>Object</h5>
+
+      <ul>
+        <li>Returns true if the object has a property with the given name - object.hasOwnProperty</li>
+      </ul>
+
+      <h5>RegExp</h5>
+
+      <ul>
+        <li>If regexp is matched within the string, it returns an array fith the matche substring at 0, the text captured at group 1, etc. - rexgexp.exec</li>
+
+        <li>Faster, returns true if matched, otherwise false - regexp.test</li>
+      </ul>
+
+      <h5>String</h5>
+
+      <ul>
+        <li>string.charAt</li>
+
+        <li>string.charCodeAt</li>
+
+        <li>string.concat // Prefer + operator</li>
+
+        <li>string.indexOf // searches for substring</li>
+
+        <li>string.lastIndexOf // searches from end of string</li>
+
+        <li>string.match // same as regexp.exec, with g flag returns array of all matches excluding capturing groups</li>
+
+        <li>string.replace // Takes search value (either string or regexp) and a replace value</li>
+
+        <li>string.search // like indexOf but takes regexp</li>
+
+        <li>string.slice</li>
+
+        <li>string.split</li>
+
+        <li>string.substring</li>
+
+        <li>string.toLocaleLowerCase</li>
+
+        <li>string.toLocaleUpperCase</li>
+
+        <li>string.toLowerCase</li>
+
+        <li>string.toUpperCase</li>
+
+        <li>string.fromCharCode</li>
+      </ul>
+
+      <h5>Falsy Values</h5>
+
+      <ul>
+        <li>false</li>
+
+        <li>null</li>
+
+        <li>undefined</li>
+
+        <li>&lsquo;&rsquo;</li>
+
+        <li>0</li>
+
+        <li>NaN</li>
+      </ul>
+
+      <p>The falsy values false, 0 (zero), and &ldquo;&rdquo; (empty string) are all equivalent and can be compared against each other The falsy values null and undefined are not equivalent to anything except themselves The value NaN is not equivalent to anything — including NaN typeof(NaN) returns &ldquo;number&rdquo;. Fortunately, the core JavaScript function isNaN() can be used to evaluate whether a value is NaN or not.</p>
+
+      <h2>Things to Know -</h2>
+
+      <ol>
+        <li>Object and array literal syntax</li>
+
+        <li>Dot notation &amp; subscript/bracket notation for methods</li>
+
+        <li>=== and !==</li>
+
+        <li>Function (Lexical) Scope</li>
+
+        <li>Hoisting</li>
+
+        <li>
+          <p>Casting Values -</p>
+          <pre>
+<code> String(42);  // "42"
+      Number("42");  // 42
+      Boolean("true");  // true
+
+      // cast string to number using the plus operator
+      +"42";  // 42
+
+      // cast number to string using an empty string and coercion
+      "" + 42;  // "42"
+     </code>
+</pre>
+        </li>
+
+        <li>
+          <p>Using number methods on number literals - (2).toFixed(); // &ldquo;2&rdquo;</p>
+        </li>
+
+        <li>Arguments object is not an array</li>
+
+        <li>
+          <p>Privatizing variables</p>
+          <pre>
+<code> var fn = (function() {
+          var privatizedVariable = "private";
+          return function() {
+              return privatizedVariable;
+          };
+      })();
+
+      fn();  // "private"
+      privatizedVariable;  // ReferenceError
+     </code>
+</pre>
+        </li>
+
+        <li>
+          <p>Prototypal inheritance</p>
+        </li>
+
+        <li>call and apply</li>
+
+        <li>function expressions vs. function declarations vs. named function expressions</li>
+
+        <li>
+          <p>Name resolution order:</p>
+
+          <ol>
+            <li>Language-defined: All scopes are, by default, given the names this and arguments.</li>
+
+            <li>Formal parameters: Functions can have named formal parameters, which are scoped to the body of that function.</li>
+
+            <li>Function declarations: These are of the form function foo() {}.</li>
+
+            <li>Variable declarations: These take the form var foo;.</li>
+          </ol>
+        </li>
+      </ol>
+
+      <p>The most important special case to keep in mind is name resolution order. Remember that there are four ways for names to enter a given scope. The order I listed them above is the order they are resolved in. In general, if a name has already been defined, it is never overridden by another property of the same name. This means that a function declaration takes priority over a variable declaration. This does not mean that an assignment to that name will not work, just that the declaration portion will be ignored. There are a few exceptions:</p>
+
+      <p>The built-in name arguments behaves oddly. It seems to be declared following the formal parameters, but before function declarations. This means that a formal parameter with the name arguments will take precedence over the built-in, even if it is undefined. This is a bad feature. Don’t use the name arguments as a formal parameter.</p>
+
+      <p>Trying to use the name this as an identifier anywhere will cause a SyntaxError. This is a good feature.</p>
+
+      <p>If multiple formal parameters have the same name, the one occurring latest in the list will take precedence, even if it is undefined.</p>
+
+      <h5>Function Parameters</h5>
+
+      <p>If a function is called with missing arguments (less than declared), the missing values are set to: undefined If a function is called with too many arguments (more than declared), these arguments cannot be referred, because they don&rsquo;t have a name. They can only be reached in the arguments object.</p>
+
+      <p>Double Exclamation Points - Defensive Programming &ldquo;foo&rdquo; = &ldquo;foo&rdquo; !&ldquo;foo&rdquo; = false !!&ldquo;foo&rdquo; = true</p>
+
+      <h5>Truth Table -</h5>
+      <pre>
+<code>''        ==   '0'           // false
+     0         ==   ''            // true
+     0         ==   '0'           // true
+     false     ==   'false'       // false
+     false     ==   '0'           // true
+     false     ==   undefined     // false
+     false     ==   null          // false
+     null      ==   undefined     // true
+     " \t\r\n" ==   0             // true
+
+     NaN   ===  NaN     //false
+     !!NaN === !!NaN    //true
+     </code>
+</pre>
+
+      <h2>Testing and Debugging</h2>
+
+      <h5>Debugging</h5>
+
+      <p>Logging - Use console.log and others of the added console methods in chrome</p>
+      <pre>
+<code>function log() {
+         try {
+             console.log.apply(console, arguments);
+         } catch(e) {
+             try {
+                 opera.postError.apply(opera, arguments);
+             } catch(e){
+                 alert(Array.prototype.join.call( arguments, " "));
+             }
+         } 
+     }
+     </code>
+</pre>
+
+      <p>Logging method that works for outdated versions of Opera</p>
+
+      <ul>
+        <li>Breakpoints - Can set breakpoints within browser console</li>
+
+        <li>Step over - Proceeds from breakpoint line to next line of code without executing any funciton/method calls in the breakpointed line</li>
+
+        <li>Step into - Proceeds into breakpointed line and executes code</li>
+
+        <li>Step out - Moves to return statement at the point where the function call one step higher then the function containing the breakpoint resumes control</li>
+      </ul>
+
+      <h5>Testing</h5>
+
+      <ul>
+        <li>Repeatability - Can be run many times and produce exact same results</li>
+
+        <li>Simplicity - Test just one thing</li>
+
+        <li>Independence - Execute in isolation</li>
+      </ul>
+
+      <p>Deconstructive - Whittle down code to bar minimum to reproduce the problem and then run tests Constructive - Start from a known, healthy functioning state for the code and rebuild until able to reproduce the bug in question</p>
+
+      <p>Test suites - custom built for frameworks and should display testing results</p>
+
+      <ul>
+        <li>The ability to simulate browser behavior (clicks, keypresses, and so on)</li>
+
+        <li>Interactive control of tests (pausing and resuming tests)</li>
+
+        <li>Handling asynchronous test timeouts</li>
+
+        <li>The ability to filter which tests are to be executed</li>
+      </ul>
+
+      <p>Assertion - core of testing, check if a premise (a function return, a variable value, no errors thrown), and log a message depending on the result</p>
+
+      <h2>Effective JS</h2>
+
+      <h3>Ch.1</h3>
+
+      <h5>Know which JS</h5>
+
+      <ul>
+        <li>Decide which versions of JavaScript your application supports.</li>
+
+        <li>Be sure that any JavaScript features you use are supported by all environments where your application runs.</li>
+
+        <li>Always test strict code in environments that perform the strict- mode checks.</li>
+
+        <li>Beware of concatenating scripts that differ in their expectations about strict mode.</li>
+      </ul>
+
+      <h5>Floating Points</h5>
+
+      <ul>
+        <li>JavaScript numbers are double-precision floating-point numbers.</li>
+
+        <li>Integers in JavaScript are just a subset of doubles rather than a separate datatype.</li>
+
+        <li>Bitwise operators treat numbers as if they were 32-bit signed integers.</li>
+
+        <li>Be aware of limitations of precisions in floating-point arithmetic.</li>
+      </ul>
+
+      <h5>Implicit Coercions</h5>
+
+      <ul>
+        <li>Type errors can be silently hidden by implicit coercions.</li>
+
+        <li>The + operator is overloaded to do addition or string concatenation depending on its argument types.</li>
+
+        <li>Objects are coerced to numbers via valueOf and to strings via toString.</li>
+
+        <li>Objects with valueOf methods should implement a toString method that provides a string representation of the number produced by valueOf.</li>
+
+        <li>Use typeof or comparison to undefined rather than truthiness to test for undefined values.</li>
+      </ul>
+
+      <h5>Primitives over Object Wrappers</h5>
+
+      <ul>
+        <li>Object wrappers for primitive types do not have the same behavior as their primitive values when compared for equality.</li>
+
+        <li>Getting and setting properties on primitives implicitly creates object wrappers.</li>
+      </ul>
+
+      <h5>Avoid Using == with Mixed Types</h5>
+
+      <ul>
+        <li>The == operator applies a confusing set of implicit coercions when its arguments are of different types.</li>
+
+        <li>Use === to make it clear to your readers that your comparison does not involve any implicit coercions.</li>
+
+        <li>Use your own explicit coercions when comparing values of different types to make your program’s behavior clearer.</li>
+      </ul>
+
+      <h5>Limits of Semicolon Insertion</h5>
+
+      <ul>
+        <li>Semicolons are only ever inferred before a }, at the end of a line, or at the end of a program.</li>
+
+        <li>Semicolons are only ever inferred when the next token cannot be parsed.</li>
+
+        <li>Never omit a semicolon before a statement beginning with (, [, +, -, or /.</li>
+
+        <li>When concatenating scripts, insert semicolons explicitly between scripts.</li>
+
+        <li>Never put a newline before the argument to return, throw, break, continue, ++, or &ndash;.</li>
+
+        <li>Semicolons are never inferred as separators in the head of a for loop or as empty statements.</li>
+      </ul>
+
+      <h5>Strings as sequence of 16 bit units</h5>
+
+      <ul>
+        <li>JavaScript strings consist of 16-bit code units, not Unicode code points.</li>
+
+        <li>Unicode code points 216 and above are represented in JavaScript by two code units, known as a surrogate pair.</li>
+
+        <li>Surrogate pairs throw off string element counts, affecting length, charAt, charCodeAt, and regular expression patterns such as “.”.</li>
+
+        <li>Use third-party libraries for writing code point-aware string manipulation.</li>
+
+        <li>Whenever you are using a library that works with strings, con- sult the documentation to see how it handles the full range of code points.</li>
+      </ul>
+
+      <h3>Ch. 2</h3>
+
+      <h5>Minimize Global Object Use</h5>
+
+      <ul>
+        <li>Avoid declaring global variables.</li>
+
+        <li>Declare variables as locally as possible.</li>
+
+        <li>Avoid adding properties to the global object.</li>
+
+        <li>Use the global object for platform feature detection.</li>
+      </ul>
+
+      <h5>Always decalre local variables</h5>
+
+      <ul>
+        <li>Always declare new local variables with var.</li>
+
+        <li>Consider using lint tools to help check for unbound variables.</li>
+
+        <li>Avoid with - with calls a number of methods in sequence on an object</li>
+
+        <li>Avoid using with statements.</li>
+
+        <li>Use short variable names for repeated access to an object.</li>
+
+        <li>Explicitly bind local variables to object properties instead of implicitly binding them with a with statement.</li>
+      </ul>
+
+      <h5>Get comfortable with closures</h5>
+
+      <ul>
+        <li>Functions can refer to variables defined in outer scopes.</li>
+
+        <li>Closures can outlive the function that creates them.</li>
+
+        <li>Closures internally store references to their outer variables, and can both read and update their stored variables.</li>
+      </ul>
+
+      <p>FUNCTIONS THAT KEEP TRACK OF VARIABLES FROM THEIR CONTAINING SCOPES ARE KNOWN AS CLOSURES</p>
+
+      <p>THE THIRD AND FINAL FACT TO LEARN ABOUT CLOSURES IS THAT THEY CAN UPDATE THE VALUES OF OUTER VARIABLES. CLOSURES ACTUALLY STORE REFERENCES TO THEIR OUTER VARIABLES, RATHER THAN COPYING THEIR VALUES</p>
+
+      <h5>Understand variable hoisting</h5>
+
+      <ul>
+        <li>Variable declarations within a block are implicitly hoisted to the top of their enclosing function.</li>
+
+        <li>Redeclarations of a variable are treated as a single variable.</li>
+
+        <li>Consider manually hoisting local variable declarations to avoid confusion.</li>
+      </ul>
+
+      <h5>Use immediately invoke function expressions to create local scopes</h5>
+
+      <p>Remember: Closures store their outer variables by reference, not by value.</p>
+      <pre>
+<code>function wrapElements(a) { 
+         var result = [];
+         for (var i = 0, n = a.length; i &lt; n; i++) {
+             (function() { 
+                 var j = i;
+                 result[i] = function() { return a[j]; };        })();
+             }
+             return result; 
+         }
+
+         function wrapElements(a) { 
+             var result = [];
+             for (var i = 0, n = a.length; i &lt; n; i++) { (function(j) {
+                 result[i] = function() { return a[j]; }; })(i);
+             }
+             return result; 
+         }
+     </code>
+</pre>
+
+      <ul>
+        <li>Understand the difference between binding and assignment. Binding - allocation of slots in memory for variables by a function when the function is called. Assignment - assigning a value to a variable.</li>
+
+        <li>Closures capture their outer variables by reference, not by value.</li>
+
+        <li>Use immediately invoked function expressions (IIFEs) to create local scopes.</li>
+
+        <li>Be aware of the cases where wrapping a block in an IIFE can change its behavior. (The block cannot contain any break or continue statements that jump outside of the block, since it is ille- gal to break or continue outside of a function. Second, if the block refers to this or the special arguments variable, the IIFE changes their meaning.)</li>
+      </ul>
+
+      <h5>Beware of unportable scoping of block local function declarations</h5>
+
+      <ul>
+        <li>Always keep function declarations at the outermost level of a program or a containing function to avoid unportable behavior.</li>
+
+        <li>Use var declarations with conditional assignment instead of condi- tional function declarations.</li>
+      </ul>
+
+      <h5>Avoid creating local variables with eval</h5>
+
+      <ul>
+        <li>Calling eval interprets its argument as a JavaScript program, but that program runs in the local scope of the caller.</li>
+
+        <li>Avoid creating variables with eval that pollute the caller’s scope.</li>
+
+        <li>If eval code might create global variables, wrap the call in a nested function to prevent scope pollution.</li>
+      </ul>
+
+      <h5>Prefer indirect eval to direct eval</h5>
+
+      <ul>
+        <li>Wrap eval in a sequence expression with a useless literal to force the use of indirect eval.</li>
+
+        <li>
+          <p>Prefer indirect eval to direct eval whenever possible.</p>
+          <pre>
+<code>  var x = "global"; 
+       function test() {
+           var x = "local";
+           return eval("x"); // direct eval 
+       }
+       test(); // "local"
+
+       var x = "global"; function test() {
+           var x = "local";
+           var f = eval;
+           return f("x"); // indirect eval
+       }
+       test(); // "global"
+     </code>
+</pre>
+        </li>
+      </ul>
+
+      <h3>Ch. 3 - Working with functions</h3>
+
+      <h5>Understand the difference between function, method and constructor calls</h5>
+      <pre>
+<code>function hello(username) { return "hello, " + username;
+     }
+     hello("Keyser Söze"); // "hello, Keyser Söze"
+
+
+     var obj = {
+     hello: function() {
+         return "hello, " + this.username; },
+         username: "Hans Gruber"
+     };
+     obj.hello(); // "hello, Hans Gruber"
+
+
+     function User(name, passwordHash) { 
+         this.name = name; 
+         this.passwordHash = passwordHash;
+     }
+
+     var u = new User("sfalken", "0ef33ae791068ec64b502d6cb0191387");
+     u.name; // "sfalken"
+     </code>
+</pre>
+
+      <ul>
+        <li>Method calls provide the object in which the method property is looked up as their receiver.</li>
+
+        <li>Function calls provide the global object (or undefined for strict func- tions) as their receiver. Calling methods with function call syntax is rarely useful.</li>
+
+        <li>Constructors are called with new and receive a fresh object as their receiver.</li>
+
+        <li>Get comfortable using higher order functions</li>
+      </ul>
+
+      <p>Higher-order functions are nothing more than functions that take other functions as arguments (callbacks) or return functions as their result.</p>
+
+      <ul>
+        <li>Higher-order functions are functions that take other functions as arguments or return functions as their result.</li>
+
+        <li>Familiarize yourself with higher-order functions in existing libraries.</li>
+
+        <li>Learn to detect common coding patterns that can be replaced by higher-order functions.</li>
+      </ul>
+
+      <h5>Use apply to call functions with different number of arguments</h5>
+
+      <p>a variadic or variable-arity function (the arity of a function is the number of argu- ments it expects): It can take any number of arguments.</p>
+
+      <ul>
+        <li>Use the apply method to call variadic functions with a computed array of arguments.</li>
+
+        <li>Use the first argument of apply to provide a receiver for variadic methods.</li>
+      </ul>
+
+      <h5>Use arguments to create variadic functions</h5>
+
+      <ul>
+        <li>Use the implicit arguments object to implement variable-arity functions.</li>
+
+        <li>Consider providing additional fixed-arity versions of the variadic functions you provide so that your consumers don’t need to use the apply method.</li>
+      </ul>
+
+      <h5>Never modify the arguments object</h5>
+
+      <ul>
+        <li>Never modify the arguments object.</li>
+
+        <li>Copytheargumentsobject to a real array using [].slice.call(arguments) before modifying it.</li>
+      </ul>
+
+      <h5>Use a variable to save a reference to arguments</h5>
+
+      <ul>
+        <li>Be aware of the function nesting level when referring to arguments.</li>
+
+        <li>Bind an explicitly scoped reference to arguments in order to refer to it from nested functions.</li>
+      </ul>
+
+      <h5>Use bind to extract methods with a fixed receiver</h5>
+
+      <ul>
+        <li>Beware that extracting a method does not bind the method’s receiver to its object.</li>
+
+        <li>When passing an object’s method to a higher-order function, use an anonymous function to call the method on the appropriate receiver.</li>
+
+        <li>Use bind as a shorthand for creating a function bound to the appro- priate receiver.</li>
+      </ul>
+
+      <h5>Use bind to curry functions</h5>
+
+      <ul>
+        <li>Use bind to curry a function, that is, to create a delegating function with a fixed subset of the required arguments.</li>
+
+        <li>Pass null or undefined as the receiver argument to curry a function that ignores its receiver.</li>
+      </ul>
+
+      <p>The technique of binding a function to a subset of its arguments is known as currying, named after the logician Haskell Curry, who popularized the technique in mathematics. Currying can be a suc- cinct way to implement function delegation with less boilerplate than explicit wrapper functions.</p>
+
+      <h5>Prefer closures to strings for encapsulating code</h5>
+
+      <ul>
+        <li>Never include local references in strings when sending them to APIs that execute them with eval.</li>
+
+        <li>Prefer APIs that accept functions to call rather than strings to eval.</li>
+      </ul>
+
+      <h5>Avoid relying on the toString method of functions</h5>
+
+      <ul>
+        <li>JavaScript engines are not required to produce accurate reflections of function source code via toString.</li>
+
+        <li>Never rely on precise details of function source, since different engines may produce different results from toString.</li>
+
+        <li>The results of toString do not expose the values of local variables stored in a closure.</li>
+
+        <li>In general, avoid using toString on functions.</li>
+      </ul>
+
+      <h5>Avoid non-standard stack inspection properties</h5>
+
+      <ul>
+        <li>Avoid the nonstandard arguments.caller and arguments.callee, because they are not reliably portable.</li>
+
+        <li>Avoid the nonstandard caller property of functions, because it does not reliably contain complete information about the stack.</li>
+      </ul>
+
+      <p>In some older host environments, every arguments object came with two additional properties: arguments.callee, which refers to the function that was called with arguments, and arguments.caller, which refers to the function that called it.</p>
+
+      <h3>Ch. 4 - Objects and Prototypes</h3>
+
+      <h5>Understand the difference between prototype, getPrototypeOf, and <em>proto</em></h5>
+
+      <ul>
+        <li>C.prototype is used to establish the prototype of objects created by new C().</li>
+
+        <li>Object.getPrototypeOf(obj) is the standard ES5 mechanism for retrieving obj’s prototype object.
+
+          <h2>- obj.<strong>proto</strong> is a nonstandard mechanism for retrieving obj’s prototype object.</h2>
+        </li>
+
+        <li>C.prototype determines the prototype of objects created by new C().</li>
+
+        <li>Object.getPrototypeOf(obj) is the standard ES5 function for retrieving the prototype of an object.</li>
+
+        <li>obj.<strong>proto</strong> is a nonstandard mechanism for retrieving the proto- type of an object.</li>
+
+        <li>A class is a design pattern consisting of a constructor function and an associated prototype.</li>
+      </ul>
+
+      <h5>Prefer Object.getPrototypeOf to <strong>prot</strong></h5>
+
+      <ul>
+        <li>Prefer the standards-compliant Object.getPrototypeOf to the non- standard <strong>proto</strong> property.</li>
+
+        <li>Implement Object.getPrototypeOf in non-ES5 environments that support <strong>proto</strong>.</li>
+      </ul>
+
+      <h5>Make your constructors new agnostic</h5>
+
+      <ul>
+        <li>If a caller forgets the new keyword, then the function’s receiver becomes the global object</li>
+
+        <li>If the User function is defined as ES5 strict code, then the receiver defaults to undefined</li>
+
+        <li>Make a constructor agnostic to its caller’s syntax by reinvoking itself with new or with Object.create.</li>
+
+        <li>Document clearly when a function expects to be called with new.</li>
+      </ul>
+
+      <h5>Store Methods on Prototypes</h5>
+
+      <ul>
+        <li>Storing methods on instance objects creates multiple copies of the functions, one per instance object.</li>
+
+        <li>Prefer storing methods on prototypes over storing them on instance objects.</li>
+      </ul>
+
+      <h5>Use Closures to store private data</h5>
+
+      <ul>
+        <li>Closure variables are private, accessible only to local references.</li>
+
+        <li>Use local variables as private data to enforce information hiding within methods.</li>
+      </ul>
+
+      <h5>Store instance state only on instance objects</h5>
+
+      <ul>
+        <li>Mutable data can be problematic when shared, and prototypes are shared between all their instances.</li>
+
+        <li>Store mutable per-instance state on instance objects.</li>
+      </ul>
+
+      <h5>Recognize the implicit binding of this</h5>
+
+      <ul>
+        <li>The scope of this is always determined by its nearest enclosing function.</li>
+
+        <li>Use a local variable, usually called self, me, or that, to make a this-binding available to inner functions.</li>
+      </ul>
+
+      <h5>Call superclass contructors from subclass constructors</h5>
+      <pre>
+<code>SpaceShip.prototype = Object.create(Actor.prototype);
+     </code>
+</pre>
+
+      <h5>not</h5>
+      <pre>
+<code>SpaceShip.prototype = new Actor();
+     </code>
+</pre>
+
+      <ul>
+        <li>Call the superclass constructor explicitly from subclass construc- tors, passing this as the explicit receiver.</li>
+
+        <li>Use Object.create to construct the subclass prototype object to avoid calling the superclass constructor.</li>
+      </ul>
+
+      <h5>Never reuse superclass property names</h5>
+
+      <ul>
+        <li>Be aware of all property names used by your superclasses.</li>
+
+        <li>Never reuse a superclass property name in a subclass.</li>
+      </ul>
+
+      <h5>Avoid Inheriting from standard classes</h5>
+
+      <ul>
+        <li>Inheriting from standard classes tends to break due to special internal properties such as [[Class]].</li>
+
+        <li>
+          <p>Prefer delegating to properties instead of inheriting from standard classes.</p>
+          <pre>
+<code>  "Array"
+       new Array(...), [...]
+       "Boolean"
+       new Boolean(...)
+       "Date"
+       new Date(...)
+       "Error"
+       new Error(...), new EvalError(...), new RangeError(...), new ReferenceError(...), new SyntaxError(...),
+       new TypeError(...), new URIError(...)
+       "Function"
+       new Function(...), function(...) {...}
+       "JSON"
+       JSON
+       "Math"
+       Math
+       "Number"
+       new Number(...)
+       "Object"
+       new Object(...), {...}, new MyClass(...)
+       "RegExp"
+       new RegExp(...), /.../
+       "String"
+       new String(...)
+     </code>
+</pre>
+        </li>
+      </ul>
+
+      <h5>Treat prototypes as an implementation detail</h5>
+
+      <ul>
+        <li>Objects are interfaces; prototypes are implementations.</li>
+
+        <li>Avoid inspecting the prototype structure of objects you don’t control.</li>
+
+        <li>Avoid inspecting properties that implement the internals of objects you don’t control.</li>
+      </ul>
+
+      <h5>Avoid reckless monkey patching</h5>
+
+      <p>Since prototypes are shared as objects, anyone can add, remove, or modify their properties. This con- troversial practice is commonly known as monkey-patching.</p>
+
+      <ul>
+        <li>Avoid reckless monkey-patching.</li>
+
+        <li>Document any monkey-patching performed by a library.</li>
+
+        <li>Consider making monkey-patching optional by performing the mod- ifications in an exported function.</li>
+
+        <li>Use monkey-patching to provide polyfills for missing standard APIs.</li>
+      </ul>
+
+      <h3>Ch. 5 - Arrays and Dictionaries</h3>
+
+      <ul>
+        <li>
+          <p>Build lightweight dictionaries from direct instances of object</p>
+          <pre>
+<code>  var dict = {};
+       dict.alice = 34;
+       dict.bob = 24;
+       dict.chris = 62;
+     </code>
+</pre>
+        </li>
+
+        <li>
+          <p>Use object literals to construct lightweight dictionaries.</p>
+        </li>
+
+        <li>Lightweight dictionaries should be direct descendants of Object.prototype to protect against prototype pollution in for&hellip;in loops.</li>
+
+        <li>use null prototypes to prevent prototype pollution</li>
+
+        <li>In ES5, use Object.create(null) to create prototype-free empty objects that are less susceptible to pollution.</li>
+
+        <li>In older environments, consider using { <strong>proto</strong>: null }.</li>
+
+        <li>But beware that <strong>proto</strong> is neither standard nor entirely portable and may be removed in future JavaScript environments.</li>
+
+        <li>Never use the name &ldquo;<strong>proto</strong>&rdquo; as a dictionary key since some environments treat this property specially.</li>
+
+        <li>Use Has own property to protect aginst prototype pollution</li>
+      </ul>
+
+      <p>Every object descended from Object inherits the hasOwnProperty method. This method can be used to determine whether an object has the specified property as a direct property of that object; unlike the in operator, this method does not check down the object&rsquo;s prototype chain.</p>
+      <pre>
+<code>o = new Object();
+     o.prop = 'exists';
+
+     function changeO() {
+         o.newprop = o.prop;
+         delete o.prop;
+     }
+
+     o.hasOwnProperty('prop');   // returns true
+     changeO();
+     o.hasOwnProperty('prop');
+     </code>
+</pre>
+
+      <ul>
+        <li>Use hasOwnProperty to protect against prototype pollution.</li>
+
+        <li>Use lexical scope and call to protect against overriding of the hasOwnProperty method.</li>
+
+        <li>Consider implementing dictionary operations in a class that encapsulates the boilerplate hasOwnProperty tests.</li>
+
+        <li>Use a dictionary class to protect against the use of &ldquo;<strong>proto</strong>&rdquo; as a key.</li>
+      </ul>
+
+      <p>We can abstract out this pattern into a Dict constructor that encapsulates all of the techniques for writing robust dictionaries in a single datatype definition:</p>
+      <pre>
+<code>function Dict(elements) {
+     // allow an optional initial table 
+     this.elements = elements || {};
+     }
+     // simple Object
+
+     Dict.prototype.has = function(key) {
+     // own property only
+     return {}.hasOwnProperty.call(this.elements, key);
+     };
+
+     Dict.prototype.get = function(key) { // own property only
+     return this.has(key)
+     ? this.elements[key] : undefined;
+     };
+
+     Dict.prototype.set = function(key, val) { 
+     this.elements[key] = val;
+     };
+
+     Dict.prototype.remove = function(key) { delete this.elements[key];
+     };
+     </code>
+</pre>
+
+      <h5>Prefer arrays to dictionaries for ordered collections</h5>
+
+      <ul>
+        <li>Avoid relying on the order in which for&hellip;in loops enumerate object properties.</li>
+
+        <li>If you aggregate data in a dictionary, make sure the aggregate operations are order-insensitive.</li>
+
+        <li>Use arrays instead of dictionary objects for ordered collections.</li>
+      </ul>
+
+      <h5>Never add enumerable properties to Object.prototype</h5>
+
+      <ul>
+        <li>Avoid adding properties to Object.prototype.</li>
+
+        <li>Consider writing a function instead of an Object.prototype method.</li>
+
+        <li>If you do add properties to Object.prototype, use ES5’s Object.defineProperty to define them as nonenumerable properties.</li>
+      </ul>
+
+      <h5>Avoid modifying an object during enumeration</h5>
+
+      <p>✦ Make sure not to modify an object while enumerating its properties with a for&hellip;in loop. ✦ Use a while loop or classic for loop instead of a for&hellip;in loop when iterating over an object whose contents might change during the loop. ✦ For predictable enumeration over a changing data structure, con- sider using a sequential data structure such as an array instead of a dictionary object.</p>
+
+      <h5>Prefer for&hellip;in loops for array interation</h5>
+
+      <ul>
+        <li>Always use a for loop rather than a for&hellip;in loop for iterating over the indexed properties of an array.</li>
+
+        <li>Consider storing the length property of an array in a local variable before a loop to avoid recomputing the property lookup.</li>
+      </ul>
+
+      <h5>Prefer iteration methods to loops</h5>
+
+      <ul>
+        <li>Use iteration methods such as Array.prototype.forEach and Array.prototype.map in place of for loops to make code more read- able and avoid duplicating loop control logic.</li>
+
+        <li>Use custom iteration functions to abstract common loop patterns that are not provided by the standard library.</li>
+
+        <li>Traditional loops can still be appropriate in cases where early exit is necessary; alternatively, the some and every methods can be used for early exit.</li>
+      </ul>
+
+      <h5>Reuse generic array methods on array-like objects</h5>
+
+      <ul>
+        <li>Reuse generic Array methods on array-like objects by extracting method objects and using their call method.</li>
+
+        <li>Any object can be used with generic Array methods if it has indexed properties and an appropriate length property.</li>
+      </ul>
+
+      <h5>Prefer array literals to the array constructor</h5>
+
+      <p>If you call the Array constructor with a single numeric argument, it does something completely different: It attempts to create an array with no elements but whose length property is the given argument. This means that [&ldquo;hello&rdquo;] and new Array(&ldquo;hello&rdquo;) behave the same, but [17] and new Array(17) do completely different things.</p>
+
+      <ul>
+        <li>The Array constructor behaves differently if its first argument is a number.</li>
+
+        <li>Use array literals instead of the Array constructor.</li>
+      </ul>
+
+      <h3>Ch. 6 Library and API Design</h3>
+
+      <h5>Maintain consistent conventions</h5>
+
+      <ul>
+        <li>Use consistent conventions for variable names and function signatures.</li>
+
+        <li>Don’t deviate from conventions your users are likely to encounter in other parts of their development platform.</li>
+      </ul>
+
+      <h5>Treat undefined as no value</h5>
+
+      <ul>
+        <li>Avoid using undefined to represent anything other than the absence of a specific value.</li>
+
+        <li>Use descriptive string values or objects with named boolean proper- ties, rather than undefined or null, to represent application-specific flags.</li>
+
+        <li>Test for undefined instead of checking arguments.length to provide parameter default values.</li>
+
+        <li>Never use truthiness tests for parameter default values that should allow 0, NaN, or the empty string as valid arguments.</li>
+      </ul>
+
+      <h5>Accept options objects for keyword arguments</h5>
+
+      <ul>
+        <li>Use options objects to make APIs more readable and memorable.</li>
+
+        <li>The arguments provided by an options object should all be treated as optional.</li>
+
+        <li>Use an extend utility function to abstract out the logic of extracting values from options objects.</li>
+      </ul>
+
+      <h5>Avoid unnecessary state</h5>
+
+      <ul>
+        <li>APIs are sometimes classified as either stateful or stateless. A stateless API provides functions or methods whose behavior depends only on their inputs, not on the changing state of the program.</li>
+
+        <li>Prefer stateless APIs where possible.</li>
+
+        <li>When providing stateful APIs, document the relevant state that each operation depends on.</li>
+      </ul>
+
+      <h5>Use structural typing for flexible interfaces</h5>
+
+      <p>This sentence contains a <em>bold phrase</em> within it. This sentence contains an <em>underlined phrase</em> within it. This sentence contains an /italicized phrase/ within it.</p>
+
+      <ul>
+        <li>Use structural typing (also known as duck typing) for flexible object interfaces.</li>
+
+        <li>Avoid inheritance when structural interfaces are more flexible and lightweight.</li>
+
+        <li>Use mock objects, that is, alternative implementations of interfaces that provide repeatable behavior, for unit testing.</li>
+      </ul>
+
+      <h5>Distinguish between array and array-like</h5>
+
+      <ul>
+        <li>Never overload structural types with other overlapping types.</li>
+
+        <li>When overloading a structural type with other types, test for the other types first.</li>
+
+        <li>Accept true arrays instead of array-like objects when overloading with other object types.</li>
+
+        <li>Document whether your API accepts true arrays or array-like values.</li>
+
+        <li>Use ES5’s Array.isArray to test for true arrays.</li>
+      </ul>
+
+      <h5>Avoid excessive coercion</h5>
+
+      <ul>
+        <li>Avoid mixing coercions with overloading.</li>
+
+        <li>Consider defensively guarding against unexpected inputs.</li>
+      </ul>
+
+      <h5>Support method chaining</h5>
+
+      <ul>
+        <li>Use method chaining to combine stateless operations.</li>
+
+        <li>Support method chaining by designing stateless methods that produce new objects.</li>
+
+        <li>Support method chaining in stateful methods by returning this.</li>
+      </ul>
+
+      <h3>Ch. 7 Concurrency</h3>
+
+      <h5>Dont block the event queue on I/O</h5>
+
+      <p>Rather than blocking on the network, this API initiates the download process and then immediately returns after storing the callback in an internal registry. At some point later, when the download has com- pleted, the system calls the registered callback, passing it the text of the downloaded file as its argument.</p>
+
+      <p>JavaScript is sometimes described as providing a run-to-completion guarantee: Any user code that is cur- rently running in a shared context, such as a single web page in a browser, or a single running instance of a web server, is allowed to finish executing before the next event handler is invoked.</p>
+
+      <p>In effect, the system maintains an internal queue of events as they occur, and invokes any registered callbacks one at a time.</p>
+
+      <p>The single most important rule of concurrent JavaScript is never to use any blocking I/O APIs in the middle of an application’s event queue. In the browser,</p>
+
+      <ul>
+        <li>Asynchronous APIs take callbacks to defer processing of expensive operations and avoid blocking the main application.</li>
+
+        <li>JavaScript accepts events concurrently but processes event han- dlers sequentially using an event queue.</li>
+
+        <li>Never use blocking I/O in an application’s event queue.</li>
+      </ul>
+
+      <h5>Use nested or named callbacks for asynchronous sequencing</h5>
+
+      <ul>
+        <li>Use nested or named callbacks to perform several asynchronous operations in sequence.</li>
+
+        <li>Try to strike a balance between excessive nesting of callbacks and awkward naming of non-nested callbacks.</li>
+
+        <li>Avoid sequencing operations that can be performed concurrently.</li>
+      </ul>
+
+      <h5>Be aware of dropped errors</h5>
+
+      <ul>
+        <li>Avoid copying and pasting error-handling code by writing shared error-handling functions.</li>
+
+        <li>Make sure to handle all error conditions explicitly to avoid dropped errors.</li>
+      </ul>
+
+      <h5>Use recursion for asynchronous loops</h5>
+
+      <ul>
+        <li>Loops cannot be asynchronous.</li>
+
+        <li>Use recursive functions to perform iterations in separate turns of the event loop.</li>
+
+        <li>Recursion performed in separate turns of the event loop does not overflow the call stack.</li>
+      </ul>
+
+      <p>When a program is in the middle of too many function calls, it can run out of stack space, resulting in a thrown exception. This condition is known as stack overflow.</p>
+
+      <h5>Dont block the event queue on computation</h5>
+
+      <ul>
+        <li>Avoid expensive algorithms in the main event queue.</li>
+
+        <li>On platforms that support it, the Worker API can be used for running long computations in a separate event queue.</li>
+
+        <li>When the Worker API is not available or is too costly, consider breaking up computations across multiple turns of the event loop.</li>
+      </ul>
+
+      <h5>Use a counter to perform concurrent operations</h5>
+
+      <ul>
+        <li>Events in a JavaScript application occur nondeterministically, that is, in unpredictable order.</li>
+
+        <li>Use a counter to avoid data races in concurrent operations.</li>
+      </ul>
+
+      <h5>Never call asynchronous callbacks synchronously</h5>
+
+      <ul>
+        <li>Never call an asynchronous callback synchronously, even if the data is immediately available.</li>
+
+        <li>Calling an asynchronous callback synchronously disrupts the expected sequence of operations and can lead to unexpected interleaving of code.</li>
+
+        <li>Calling an asynchronous callback synchronously can lead to stack overflows or mishandled exceptions.</li>
+
+        <li>Use an asynchronous API such as setTimeout to schedule an asynchronous callback to run in another turn.</li>
+      </ul>
+
+      <h5>Use promises for cleaner asynchronous logic</h5>
+
+      <p>One way to think about a promise is as an object that represents an eventual value—it wraps a concurrent operation that may not have completed yet, but will eventually produce a result value. The then method allows us to take one promise object that represents one type of eventual value and generate a new promise object that represents another type of eventual value—whatever we return from the callback.</p>
+
+      <ul>
+        <li>Promises represent eventual values, that is, concurrent computations that eventually produce a result.</li>
+
+        <li>Use promises to compose different concurrent operations.</li>
+
+        <li>Use promise APIs to avoid data races.</li>
+
+        <li>Use select (also known as choose) for situations where an inten- tional race condition is required.</li>
+      </ul>
+
+      <h2>JS Design Patterns</h2>
+
+      <h3>JavaScript Design Patterns</h3>
+
+      <h5>Constructor Pattern</h5>
+
+      <ol>
+        <li>Literal</li>
+
+        <li>Object.create(Object.prototype)</li>
+
+        <li>new</li>
+      </ol>
+
+      <h5>Property Assignment</h5>
+
+      <ol>
+        <li>.</li>
+
+        <li>[&ldquo;&rdquo;]</li>
+
+        <li>defineProperty</li>
+
+        <li>defineProperties</li>
+      </ol>
+
+      <h5>Inheritance -</h5>
+      <pre>
+<code>var truck = Object.create(auto);
+     </code>
+</pre>
+
+      <h5>Constructor -</h5>
+      <pre>
+<code>function *Object*(params) {
+       this.params = params;
+
+       this.method = function () {};
+     }
+
+     Constructor with Prototype - 
+     *Object*.prototype.method = function () {};
+     </code>
+</pre>
+
+      <h5>Module Pattern -</h5>
+
+      <h6>Options</h6>
+
+      <ol>
+        <li>Object literal notation</li>
+
+        <li>Standard module pattern</li>
+
+        <li>AMD modules</li>
+
+        <li>CommonJS modules</li>
+
+        <li>ECMAScript Harmony Modules</li>
+      </ol>
+
+      <h5>Object Literals</h5>
+
+      <p>Creates module pattern by encapsulating and organizing data</p>
+
+      <h5>Module Pattern -</h5>
+
+      <p>(See notes in above) Encapsulates privacy, state and organization using closures Similar to IIFE except object is returned instead of function</p>
+      <pre>
+<code>(IIFE's - 
+     (function(){ /* code */ }()); // Crockford recommends this one
+
+     (function(){ /* code */ })(); // But this one works just as well
+
+     with a function as the return value
+     )
+
+     var module = (function () {
+         var x;
+         return {
+             method: function (foo) {
+                 x = foo;
+                 return x;
+             }
+         }
+     })();
+     </code>
+</pre>
+
+      <h5>Simple Module Template</h5>
+      <pre>
+<code>var myNamespace = (function () {
+
+         var myPrivateVar, myPrivateMethod;
+
+         // A private counter variable
+         myPrivateVar = 0;
+
+         // A private function which logs any arguments
+         myPrivateMethod = function( foo ) {
+             console.log( foo );
+         };
+
+         return {
+
+             // A public variable
+             myPublicVar: "foo",
+
+             // A public function utilizing privates
+             myPublicFunction: function( bar ) {
+
+                 // Increment our private counter
+                 myPrivateVar++;
+
+                 // Call our private method using bar
+                 myPrivateMethod( bar );
+
+             }
+         };
+
+     })();
+     </code>
+</pre>
+
+      <p>Imports - pass variables (global or outside scope) into function as arguments and parameters</p>
+
+      <p>Exports - create object variable and explicitly set properties/methods and return object</p>
+
+      <p>Frameworks with support for modules - Dojo (with AMD compatible version), ExtJS, YUI, jQuery</p>
+
+      <h5>Advantages of vanilla modules</h5>
+
+      <p>cleaner (control over variables in global namespace), private data (code can touch private data but outside world cannot) Disadvantages - If changes to visibility are made, each reference to the data must be changed, cannot access private members in methods that are added later, no automated unit tests for private members</p>
+
+      <h5>Revealing Module Pattern</h5>
+      <pre>
+<code>var myRevealingModule = (function () {
+         var privateVar = "Ben Cherry",
+         publicVar  = "Hey there!";
+         function privateFunction() {
+             console.log( "Name:" + privateVar );
+         } 
+         function publicSetName( strName ) {
+             privateVar = strName;
+         } 
+         function publicGetName() {
+             privateFunction();
+         } 
+         // Reveal public pointers to
+         // private functions and properties
+         return {
+             setName: publicSetName,
+             greeting: publicVar,
+             getName: publicGetName
+         };
+         })();
+
+         var myRevealingModule = (function () {
+             var privateCounter = 0; 
+             function privateFunction() {
+                 privateCounter++;
+             } 
+             function publicFunction() {
+                 publicIncrement();
+             } 
+             function publicIncrement() {
+                 privateFunction();
+             } 
+             function publicGetCount(){
+                 return privateCounter;
+             }
+             // Reveal public pointers to
+             // private functions and properties
+             return {
+                 start: publicFunction,
+                 increment: publicIncrement,
+                 count: publicGetCount
+             }; 
+             })();
+     </code>
+</pre>
+
+      <p>Makes clear what can be accessed, but may be more fragile</p>
+
+      <h5>Singleton Pattern</h5>
+
+      <p>Class that is only allowed to instantiate one single object, only returns a reference to the original afterwards.</p>
+
+      <ul>
+        <li>There must be exactly one instance of a class, and it must be accessible to clients from a well-known access point.</li>
+
+        <li>When the sole instance should be extensible by subclassing, and clients should be able to use an extended instance without modifying their code.</li>
+
+        <li>Singleton defers execution by isolating the unpredictability of dynamic initialization, returning control to the programmer</li>
+
+        <li>Singleton and static objects/classes are distinct</li>
+
+        <li>The singleton is useful when exactly one object is needed to coordinate others across a system.</li>
+
+        <li>
+          <p>When needed in JavaScript it usually means that the code base needs to be refactored or the larger design needs to be reconsidered</p>
+          <pre>
+<code>  var mySingleton = (function () {
+
+           // Instance stores a reference to the Singleton
+           var instance;
+
+           function init() {
+
+               // Singleton
+
+               // Private methods and variables
+               function privateMethod(){
+                   console.log( "I am private" );
+               }
+
+               var privateVariable = "Im also private";
+
+               var privateRandomNumber = Math.random();
+
+               return {
+
+                   // Public methods and variables
+                   publicMethod: function () {
+                       console.log( "The public can see me!" );
+                       },
+
+                       publicProperty: "I am also public",
+
+                       getRandomNumber: function() {
+                           return privateRandomNumber;
+                       }
+
+                   };
+
+               };
+
+               return {
+
+                   // Get the Singleton instance if one exists
+                   // or create one if it doesn't
+                   getInstance: function () {
+
+                       if ( !instance ) {
+                           instance = init();
+                       }
+
+                       return instance;
+                   }
+
+               };
+
+           })();
+     </code>
+</pre>
+        </li>
+      </ul>
+
+      <h5>Observer Pattern</h5>
+
+      <ul>
+        <li>Subject (type of object) notifies a list of observers of any changes of state</li>
+
+        <li>
+          <p>Observer attaches to subject, registering (updating) state change upon receiving a notify message from the subject, detaching when necessary</p>
+          <pre>
+<code>  function ObserverList(){
+           this.observerList = [];
+       }
+
+       ObserverList.prototype.add = function( obj ){
+           return this.observerList.push( obj );
+       };
+
+       ObserverList.prototype.count = function(){
+           return this.observerList.length;
+       };
+
+       ObserverList.prototype.get = function( index ){
+           if( index &gt; -1 &amp;&amp; index &lt; this.observerList.length ){
+               return this.observerList[ index ];
+           }
+       };
+
+       ObserverList.prototype.indexOf = function( obj, startIndex ){
+           var i = startIndex;
+
+           while( i &lt; this.observerList.length ){
+               if( this.observerList[i] === obj ){
+                   return i;
+               }
+               i++;
+           }
+
+           return -1;
+       };
+
+       ObserverList.prototype.removeAt = function( index ){
+           this.observerList.splice( index, 1 );
+       };
+
+       function Subject(){
+           this.observers = new ObserverList();
+       }
+
+
+       Subject.prototype.addObserver = function( observer ){
+           this.observers.add( observer );
+       };
+
+       Subject.prototype.removeObserver = function( observer ){
+           this.observers.removeAt( this.observers.indexOf( observer, 0 ) );
+       };
+
+       Subject.prototype.notify = function( context ){
+           var observerCount = this.observers.count();
+           for(var i=0; i &lt; observerCount; i++){
+               this.observers.get(i).update( context );
+           }
+       };
+     </code>
+</pre>
+        </li>
+      </ul>
+
+      <h5>Observer vs. Publish/Subscribe</h5>
+
+      <ul>
+        <li>Pub/sub implements a topic/event channel (event aggregator) to sit between subject (publisher) and object (subscriber or observer)</li>
+
+        <li>publish(),subscribe() and unsubscribe() follow a similar line of thought to event listeners</li>
+
+        <li>Advantages - Observer good to maintain consistency between related objects, both are good for creating decoupled systems</li>
+
+        <li>Disadvantages - with pub/sub it creates a possibility of issues with the subscriber that the publisher does not see due to decoupling, subscribers do not see each other</li>
+      </ul>
+
+      <p>Publish</p>
+      <pre>
+<code>// jQuery: $(obj).trigger("channel", [arg1, arg2, arg3]);
+     $( el ).trigger( "/login", [{username:"test", userData:"test"}] );
+
+     // Dojo: dojo.publish("channel", [arg1, arg2, arg3] );
+     dojo.publish( "/login", [{username:"test", userData:"test"}] );
+
+     // YUI: el.publish("channel", [arg1, arg2, arg3]);
+     el.publish( "/login", {username:"test", userData:"test"} );
+     </code>
+</pre>
+
+      <h5>Vanilla JS implementations - Amplify JS, Radio.js, PubSubJS, or Pure JS PubSub</h5>
+      <pre>
+<code>var pubsub = {};
+
+     (function(myObject) {
+
+         // Storage for topics that can be broadcast 
+         // or listened to
+         var topics = {};
+
+         // An topic identifier
+         var subUid = -1;
+
+         // Publish or broadcast events of interest
+         // with a specific topic name and arguments
+         // such as the data to pass along
+         myObject.publish = function( topic, args ) {
+
+             if ( !topics[topic] ) {
+                 return false;
+             }
+
+             var subscribers = topics[topic],
+             len = subscribers ? subscribers.length : 0;
+
+             while (len--) {
+                 subscribers[len].func( topic, args );
+             }
+
+             return this;
+         };
+
+         // Subscribe to events of interest
+         // with a specific topic name and a
+         // callback function, to be executed
+         // when the topic/event is observed
+         myObject.subscribe = function( topic, func ) {
+
+             if (!topics[topic]) {
+                 topics[topic] = [];
+             }
+
+             var token = ( ++subUid ).toString();
+             topics[topic].push({
+                 token: token,
+                 func: func
+                 });
+                 return token;
+             };
+
+             // Unsubscribe from a specific
+             // topic, based on a tokenized reference
+             // to the subscription
+             myObject.unsubscribe = function( token ) {
+                 for ( var m in topics ) {
+                     if ( topics[m] ) {
+                         for ( var i = 0, j = topics[m].length; i &lt; j; i++ ) {
+                             if ( topics[m][i].token === token ) {
+                                 topics[m].splice( i, 1 );
+                                 return token;
+                             }
+                         }
+                     }
+                 }
+                 return this;
+             };
+         }( pubsub ));
+     </code>
+</pre>
+
+      <h5>Mediator Pattern</h5>
+
+      <ul>
+        <li>Similar to the topic/event channel in pub/sub but different due to semantics</li>
+
+        <li>Mediator coordinates interactions (logic &amp; behavior) between multiple objects</li>
+
+        <li>Event aggregator always deals with events, whereas mediator does not have to deal with events</li>
+
+        <li>Event aggregator - unknown number of sources to unknown number of handlers, all logic and workflow of the aggregator is handled inside of the objects that both trigger and handle the events</li>
+
+        <li>The mediator handles the business logic and workflow itself, and knows when an object should have a method called or state changed</li>
+
+        <li>Event aggregator is &ldquo;fire and forget&rdquo;</li>
+      </ul>
+
+      <h6>When to Use</h6>
+
+      <ul>
+        <li>Event Aggregator</li>
+
+        <li>Large number of objects listening for one event that could detoriate performance</li>
+
+        <li>Indirect relationships that are dependent on eachother, ie view objects that have dependent activity but are not directly linked</li>
+      </ul>
+
+      <h5>Mediator</h5>
+
+      <ul>
+        <li>When two or more objects have an indeirect working relationship</li>
+      </ul>
+
+      <h6>Event Aggregator and Mediator together</h6>
+
+      <ul>
+        <li>Mediator handles many objects that related to eachother but unrelated to source whereas many of the changes that are unrelated are better served with an event aggregator</li>
+      </ul>
+
+      <h6>Advantages &amp; Disadvatnages</h6>
+
+      <ul>
+        <li>Mediator - reduces communication channels needed in a system to one, may cause performance inssues. Decoupled systems have the benefit of avoiding single changes (object throwing error) causing a domino effect through the whole system</li>
+      </ul>
+
+      <h5>The Prototype Pattern</h5>
+
+      <ul>
+        <li>Can just be simplified in JavaScript to prototypal inheritance, objects receiving properties and methods from other objects.</li>
+
+        <li>Objects are created based on a template of an existing object through cloning</li>
+      </ul>
+
+      <h6>Benefits</h6>
+
+      <ul>
+        <li>Natively implemented in JavaScript</li>
+
+        <li>Increases performance because methods reference the original instead of creating their own copy</li>
+
+        <li>ECMAScript 5 defines real prototypal inheritance through Object.create</li>
+
+        <li>
+          <p>Prototypal inheritance without object.create</p>
+          <pre>
+<code>  var vehiclePrototype = {
+
+           init: function ( carModel ) {
+               this.model = carModel;
+           },
+
+           getModel: function () {
+               console.log( "The model of this vehicle is.." + this.model);
+           }
+       };
+
+
+       function vehicle( model ) {
+
+           function F() {};
+           F.prototype = vehiclePrototype;
+
+           var f = new F();
+
+           f.init( model );
+           return f;
+
+       }
+
+       var car = vehicle( "Ford Escort" );
+       car.getModel();
+     </code>
+</pre>
+        </li>
+      </ul>
+
+      <h5>The Command Pattern</h5>
+
+      <ul>
+        <li>Encapsulates method invocation, requests or operations into a single object, allowing the actions to be decoupled from the object, and alllowing us to swap out concrete classes</li>
+
+        <li>Abstract class - defines an interface but doesn&rsquo;t necessarily provide the implementation</li>
+
+        <li>
+          <p>Concrete class - expands on an abstract classes interface to provide the implementation</p>
+          <pre>
+<code>  CommandObject.execute("method", "receiving object", "data"); // for instance
+     </code>
+</pre>
+        </li>
+      </ul>
+
+      <h5>The Facade Pattern</h5>
+
+      <ul>
+        <li>An object that provides a convenient higher leve interface to abstract out some of the underlying complexity</li>
+
+        <li>Often seen in libraries like jQuery</li>
+
+        <li>
+          <p>Example - creating methods or functions that check for cross-browser features and performs an action based on the presence of certain features</p>
+          <pre>
+<code>  jQuery's $(document).ready()
+
+       bindReady: function() {
+           ...
+           if ( document.addEventListener ) {
+               // Use the handy event callback
+               document.addEventListener( "DOMContentLoaded", DOMContentLoaded, false );
+
+               // A fallback to window.onload, that will always work
+               window.addEventListener( "load", jQuery.ready, false );
+
+               // If IE event model is used
+               } else if ( document.attachEvent ) {
+
+                   document.attachEvent( "onreadystatechange", DOMContentLoaded );
+
+                   // A fallback to window.onload, that will always work
+                   window.attachEvent( "onload", jQuery.ready );
+     </code>
+</pre>
+        </li>
+      </ul>
+
+      <h6>Can combine with module pattern to present a simplified interface to a module</h6>
+      <pre>
+<code>var module = (function() {
+
+         var _private = {
+             i:5,
+             get : function() {
+                 console.log( "current value:" + this.i);
+                 },
+                 set : function( val ) {
+                     this.i = val;
+                     },
+                     run : function() {
+                         console.log( "running" );
+                         },
+                         jump: function(){
+                             console.log( "jumping" );
+                         }
+                     };
+
+                     return {
+
+                         facade : function( args ) {
+                             _private.set(args.val);
+                             _private.get();
+                             if ( args.run ) {
+                                 _private.run();
+                             }
+                         }
+                     };
+                 }());
+
+
+         // Outputs: "current value: 10" and "running"
+         module.facade( {run: true, val:10} );
+     </code>
+</pre>
+
+      <p>Facades general have few disadvantages, but may hurt performance due to abstraction. getElementById is much faster than $().</p>
+
+      <h5>The Factory Pattern</h5>
+
+      <ul>
+        <li>
+          <p>Similar to other creational objects, but instead of calling new explicitly to create an object, we call the Factory object directly, asking for it to create some sort of sub-object, which it instantiates and returns</p>
+
+          <p>// Types.js - Constructors used behind the scenes</p>
+
+          <p>// A constructor for defining new cars function Car( options ) {</p>
+          <pre>
+<code>  // some defaults
+       this.doors = options.doors || 4;
+       this.state = options.state || "brand new";
+       this.color = options.color || "silver";
+     </code>
+</pre>
+
+          <p>}</p>
+
+          <p>// A constructor for defining new trucks function Truck( options){</p>
+          <pre>
+<code>  this.state = options.state || "used";
+       this.wheelSize = options.wheelSize || "large";
+       this.color = options.color || "blue";
+     </code>
+</pre>
+
+          <p>}</p>
+
+          <p>// FactoryExample.js</p>
+
+          <p>// Define a skeleton vehicle factory function VehicleFactory() {}</p>
+
+          <p>// Define the prototypes and utilities for this factory</p>
+
+          <p>// Our default vehicleClass is Car VehicleFactory.prototype.vehicleClass = Car;</p>
+
+          <p>// Our Factory method for creating new Vehicle instances VehicleFactory.prototype.createVehicle = function ( options ) {</p>
+          <pre>
+<code>  switch(options.vehicleType){
+           case "car":
+           this.vehicleClass = Car;
+           break;
+           case "truck":
+           this.vehicleClass = Truck;
+           break;
+           //defaults to VehicleFactory.prototype.vehicleClass (Car)
+       }
+
+       return new this.vehicleClass( options );
+     </code>
+</pre>
+
+          <p>};</p>
+
+          <p>// Create an instance of our factory that makes cars var carFactory = new VehicleFactory(); var car = carFactory.createVehicle( { vehicleType: &ldquo;car&rdquo;, color: &ldquo;yellow&rdquo;, doors: 6 } );</p>
+          <pre>
+<code>  // Test to confirm our car was created using the vehicleClass/prototype Car
+
+       // Outputs: true
+       console.log( car instanceof Car );
+
+       // Outputs: Car object of color "yellow", doors: 6 in a "brand new" state
+       console.log( car );
+     </code>
+</pre>
+        </li>
+      </ul>
+
+      <h6>Use the factory pattern:</h6>
+
+      <ul>
+        <li>Setup involves complexity</li>
+
+        <li>Generate different instances depending on the environment</li>
+
+        <li>Working with many objects that share the same or similar properties</li>
+
+        <li>When composing instances that only need to satisfy an API contract</li>
+      </ul>
+
+      <h6>Don&rsquo;t use when:</h6>
+
+      <ul>
+        <li>Generally stick to explicit constructors to avoid overhead. Can also introduce problems with unit testing</li>
+      </ul>
+
+      <h5>Abstract Factories</h5>
+
+      <ul>
+        <li>Similar to factory but allows for an interface to define types of sub-objects whereas factory only implements classes that fulfill the sub-object contract</li>
+      </ul>
+
+      <h5>The Mixin Pattern</h5>
+
+      <ul>
+        <li>Mixins are classes which offer functionality for sub-classes to access function re-use</li>
+
+        <li>
+          <p>Base object provides form to sub-object, and so on</p>
+          <pre>
+<code>  var Person =  function( firstName , lastName ){
+
+         this.firstName = firstName;
+         this.lastName =  lastName;
+         this.gender = "male";
+
+       };
+
+       // a new instance of Person can then easily be created as follows:
+       var clark = new Person( "Clark" , "Kent" );
+
+       // Define a subclass constructor for for "Superhero":
+       var Superhero = function( firstName, lastName , powers ){
+
+           // Invoke the superclass constructor on the new object
+           // then use .call() to invoke the constructor as a method of
+           // the object to be initialized.
+
+           Person.call( this, firstName, lastName );
+
+           // Finally, store their powers, a new array of traits not found in a normal "Person"
+           this.powers = powers;
+       };
+
+       Superhero.prototype = Object.create( Person.prototype );
+       var superman = new Superhero( "Clark" ,"Kent" , ["flight","heat-vision"] );
+       console.log( superman );
+
+       // Outputs Person attributes as well as powers
+     </code>
+</pre>
+        </li>
+
+        <li>
+          <p>In JavaScript, mixins are equivalent to extension</p>
+        </li>
+
+        <li>Can use Underscore.js helper _extend() method</li>
+      </ul>
+
+      <h6>Advantages and Disadvantages</h6>
+
+      <ul>
+        <li>Decrease functional repetition and increase function re-use, keep shared functionality in a mixin</li>
+
+        <li>Extending prototypes can lead to prototype pollution and questionable code origins</li>
+      </ul>
+
+      <h5>Decorator Pattern</h5>
+
+      <ul>
+        <li>
+          <p>Extend a class to extend object functionality</p>
+          <pre>
+<code>  var truck = new Vehicle( "truck" );
+
+       // New functionality we're decorating vehicle with
+       truck.setModel = function( modelName ){
+           this.model = modelName;
+       };
+
+       truck.setColor = function( color ){
+           this.color = color;
+       };
+     </code>
+</pre>
+        </li>
+      </ul>
+
+      <p>Another example is to override functions of the super class</p>
+
+      <h5>Interfaces</h5>
+
+      <ul>
+        <li>An interface is a way of defining the methods an object should have but not necessarily defining how they are implemented</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

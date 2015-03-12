@@ -1,0 +1,38 @@
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 0;
+}
+h2 {
+  font-size: 1.3em;
+  margin-bottom: .5em;
+}
+h3 {
+  font-size: 1.1em;
+  margin-bottom: 0;
+}
+.poem {
+  margin: 0 2em;
+}
+.emphasized {
+  font-style: italic;
+  border: 1px solid #888;
+  padding: 0.5em;
+}
+.horizontal {
+  float: left;
+  list-style: none;
+  margin: 10px;
+}
+a{
+  color: #00f; /* make plain links blue */
+} 
+.mailto {
+  color: #f00; /* make email links red */
+}
+.pdflink {
+  color: #090; /* make PDF links green */
+}
+.mysite {
+  text-decoration: none; /* remove internal link underline */
+  border-bottom: 1px dotted #00f;
+}

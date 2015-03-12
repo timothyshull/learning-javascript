@@ -1,0 +1,11 @@
+var store1 = window.app.todo.storage;
+
+store1.saveMain("title");
+
+var testObject = {val:undefined};
+
+store1.findMain(function(data) {console.log(data);});
+
+store1.findMain(function(data) {testObject.val = data;});
+
+testObject.val;
